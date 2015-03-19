@@ -29,12 +29,26 @@ header div
 h1
 	margin: 0
 
+.clearfix
+	clear: both
+
 #box-container
-	padding: 0em 3.571em
+	margin: 1.428em 0px
+	column(6/8, offset:1/8)
+	//padding: 0em 3.571em
 
 .box
-	margin: 0.714em 0px
-	display: block
+	margin 0.25rem 0
+	+mobile()
+		column(1/1, offset:1/10)
+	+tablet()
+		column(1/2, offset:1/4)
+	+desktop()
+		column(1/4)
+	+hd()
+		column(1/4, offset:1/3)
+	//border-radius 0.2rem
+	//box-shadow:         0px 3px 5px 0px rgba(50, 50, 50, 0.25)
 
 .box-title
 	background-color: #cccccc
