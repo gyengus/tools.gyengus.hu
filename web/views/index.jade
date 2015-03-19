@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	+box('')
+		| Keresőmező
+	+box('IP/Host')
+		| IP: 
+		span#ip #{ip}
+		br
+		| Hostname: 
+		span#hostname
+	+box('Jelszó generátor')
+		span#password
+	script(src='/js/index.js')

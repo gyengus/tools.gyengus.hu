@@ -1,0 +1,59 @@
+@import 'nib'
+@import 'jeet'
+@import 'rupture'
+
+enable-em-breakpoints = true
+rupture.mobile-cutoff = 767px
+rupture.desktop-cutoff = 1150px
+
+for index in (0..7) // 36em 48em, 60em, 72em, 84em, 96em, 108em, 120em
+	size = 36em + index * 12em
+	@media only screen and (min-width: size )
+		html
+			font-size (16px + index)
+ 
+body
+	margin: 0px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
+	background-color: #eeeeee
+
+header
+	width: 100%
+	background-color: #f5f5f5
+
+header div
+	margin: 0 auto
+	max-width: 866px
+	padding: 0.714em 0px
+
+h1
+	margin: 0
+
+#box-container
+	padding: 0em 3.571em
+
+.box
+	margin: 0.714em 0px
+	display: block
+
+.box-title
+	background-color: #cccccc
+
+.box-title h3
+	margin: 0em
+
+.box-body
+	background-color: #ffffff
+
+footer
+	position: fixed
+	bottom: 0
+	left: 0
+	right: 0
+	width: 100%
+	background-color: #f5f5f5
+
+footer div
+	margin: 0 auto
+	max-width: 866px
+	padding: 0.714em 0px

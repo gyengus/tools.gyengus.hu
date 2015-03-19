@@ -1,0 +1,8 @@
+mixin box(title)
+	.box
+		if title
+			.box-title
+				h3= title
+		.box-body
+			if block
+				block
