@@ -2,17 +2,21 @@ extends layout
 
 block content
 	#box-container
-		+box('')
-			| Keresőmező
-		+box('IP/Host')
-			| IP:
-			span#ip #{ip}
-			br
-			| Hostname:
-			span#hostname
-		+box('Jelszó generátor')
-			span#password
-		+box('Placeholder')
-			| Itt majd lesz valami
+		.col
+			+box('')
+				| Keresőmező
+		.col
+			+box('IP/Host')
+				| IP:
+				span#ip #{ip}
+				br
+				| Hostname:
+				span#hostname
+		.col
+			+box('Jelszó generátor')
+				span#password
+		.col
+			+box('Placeholder')
+				| Itt majd lesz valami
 	.clearfix
 	script(src='/js/index.js')
