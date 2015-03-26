@@ -27,3 +27,10 @@ node_modules
 
 # Debug log from npm
 npm-debug.log
+
+info.txt
+public
+*.bak
+bootstrap_theme.jade
+*.php
+gulp_package.json

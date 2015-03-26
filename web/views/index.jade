@@ -2,7 +2,7 @@ extends layout
 
 block content
 	#box-container
-		+box('')
+		+box('Keresés')
 			| Keresőmező
 		+box('IP/Host')
 			| IP:
@@ -10,9 +10,15 @@ block content
 			br
 			| Hostname:
 			span#hostname
+		+box('Olvasnivaló')
+			| Itt lesznek a cikkek amik az oldalam RSS-éből jönnek
 		+box('Jelszó generátor')
 			span#password
-		+box('Placeholder')
-			| Itt majd lesz valami
+		+box('')
+			| Ez itt a reklám helye
+		+box('Támogató gombok')
+			| Flattr, PayPal donate
+		+box('Osszad meg!')
+			| Like, +1 gombok
 	.clearfix
 	script(src='/js/index.js')
