@@ -6,70 +6,72 @@ enable-em-breakpoints = true
 rupture.mobile-cutoff = 767px
 rupture.desktop-cutoff = 1150px
 
-for index in (0..7) // 36em 48em, 60em, 72em, 84em, 96em, 108em, 120em
+html
+	margin 0
+	padding 0
+	font 10px Verdana, Arial, sans-serif
+	background-color #eeeeee
+
+for index in (0..7)
 	size = 36em + index * 12em
 	@media only screen and (min-width: size )
 		html
-			font-size (16px + index)
- 
-body
-	margin: 0px;
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
-	background-color: #eeeeee
+			font-size (10px + index)
 
 header
-	width: 100%
-	background-color: #f5f5f5
+	width 100%
+	background-color #f5f5f5
 
 header div
-	margin: 0 auto
-	max-width: 866px
-	padding: 0.714em 0px
+	//margin: 0 auto
+	//max-width: 866px
+	column(6/8, offset:1/8)
+	padding 0.714em 0px
 
 h1
-	margin: 0
+	margin 0
 
 .clearfix
-	clear: both
+	clear both
 
 #box-container
-	margin: 1.428em 0px
+	margin 1.428em 0px
 	column(6/8, offset:1/8)
-	//padding: 0em 3.571em
+	//padding 0em 3.571em
 
 .box
 	margin 0.25rem 0
 
 .col
 	+mobile()
-		column(1/1)
+		column(1/1, cycle: 1)
 	+tablet()
-		column(1/2)
+		column(1/2, cycle: 2)
 	+desktop()
-		column(1/4)
+		column(1/4, cycle: 4)
 	+hd()
-		column(1/4)
+		column(1/4, cycle: 4)
 	//border-radius 0.2rem
-	//box-shadow:         0px 3px 5px 0px rgba(50, 50, 50, 0.25)
+	//box-shadow 0px 3px 5px 0px rgba(50, 50, 50, 0.25)
 
 .box-title
-	background-color: #cccccc
+	background-color #cccccc
 
 .box-title h3
-	margin: 0em
+	margin 0em
 
 .box-body
-	background-color: #ffffff
+	background-color #ffffff
 
 footer
-	position: fixed
-	bottom: 0
-	left: 0
-	right: 0
-	width: 100%
-	background-color: #f5f5f5
+	position fixed
+	bottom 0
+	left 0
+	right 0
+	width 100%
+	background-color #f5f5f5
 
 footer div
-	margin: 0 auto
-	max-width: 866px
-	padding: 0.714em 0px
+	//margin 0 auto
+	padding 0.714em 0px
+	column(6/8, offset:1/8)

@@ -3,9 +3,8 @@ extends layout
 block content
 	#box-container
 		.col
-			+box('')
+			+box('Keresés')
 				| Keresőmező
-		.col
 			+box('IP/Host')
 				| IP:
 				span#ip #{ip}
@@ -13,10 +12,17 @@ block content
 				| Hostname:
 				span#hostname
 		.col
+			+box('Olvasnivaló')
+				| Itt lesznek a cikkek amik az oldalam RSS-éből jönnek
+		.col
 			+box('Jelszó generátor')
 				span#password
+			+box('')
+				| Ez itt a reklám helye
 		.col
-			+box('Placeholder')
-				| Itt majd lesz valami
+			+box('Támogató gombok')
+				| Flattr, PayPal donate
+			+box('Osszad meg!')
+				| Like, +1 gombok
 	.clearfix
 	script(src='/js/index.js')
