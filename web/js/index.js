@@ -119,5 +119,6 @@ $(function() {
 				msnry.layout();
 			});
 		}
+		return false;
 	});
 });
