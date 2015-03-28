@@ -4,14 +4,26 @@ html
 	head
 		meta(charset='utf-8')
 		title= title
+		link(rel='icon', href="favicon.ico")
+		link(rel='stylesheet', href='/css/icons.css')
 		link(rel='stylesheet', href='/css/style.css')
 		script(src='/js/jquery.min.js')
 	body
 		header
 			div
-				h1= title
+				h1 #{title}
+					sup v#{app_version}
+						| (pre alpha)
 		#container
 			block content
 		footer
-			div Ide meg a lábléc...
+			div
+				.copy
+					| Copyright &copy;
+					a(href='http://gyengus.hu/?utm_source=tools') Gyengus&trade;
+				.github
+					a(href='https://github.com/gyengus/tools.gyengus.hu', target='_blank', title='GitHub')
+						span.icon.icon-github
+				a(href='http://desktopbabes.info/?utm_source=tools') Hátterek
+				a(href='http://2jump.info/?utm_source=tools') Link rövidítés
 		include ga.jade

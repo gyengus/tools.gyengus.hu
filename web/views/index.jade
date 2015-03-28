@@ -11,14 +11,61 @@ block content
 			| Hostname:
 			span#hostname
 		+box('Olvasnivaló')
-			| Itt lesznek a cikkek amik az oldalam RSS-éből jönnek
+			!= news
 		+box('Jelszó generátor')
 			span#password
+			|
+			button#genpasswordbtn(title='Új jelszó')
+				span.icon.icon-loop2
 		+box('')
-			| Ez itt a reklám helye
-		+box('Támogató gombok')
-			| Flattr, PayPal donate
+			div(style='height: 250px;') Ez itt a reklám helye
+		+box('Hashelés')
+			input#in_hash_str(name='in_hash_str', placeholder='Szöveg')
+			| Algoritmus:
+			select#in_hash
+				option(value='md5') MD5
+				option(value='sha1') SHA1
+				option(value='sha256') SHA256
+				option(value='sha512') SHA512
+			|
+			button#genhashbtn(title='Generálás')
+				span.icon.icon-cogs
+			br
+			div#out_hash
+		+box('Hostname lekérdezése')
+			input#in_ip(name='in_ip', placeholder='IP')
+			button#gethostnamebtn
+				span.icon.icon-search
+			br
+			span#out_hostname
+		+box('IP lekérdezése')
+			input#in_hostname(name='in_hostname', placeholder='Hostname')
+			button#getipbtn
+				span.icon.icon-search
+			br
+			span#out_ip
+		+box('date();')
+			| UNIX timestamp:
+			br
+			input#in_timestamp
+			button#datebtn
+				span.icon.icon-calendar
+			br
+			| Dátum:
+			span#out_date
+		+box('strtodate();')
+			| Dátum, idő:
+			br
+			input#in_date
+			button#strtodatebtn
+				span.icon.icon-calendar
+			br
+			| UNIX timestamp:
+			span#out_timestamp
+		//+box('Támogató gombok')
+			| Flattr, PayPal donate, Gratipay
 		+box('Osszad meg!')
 			| Like, +1 gombok
 	.clearfix
+	script(src='/js/masonry.pkgd.min.js')
 	script(src='/js/index.js')

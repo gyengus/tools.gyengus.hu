@@ -1,8 +1,11 @@
-mixin box(title)
+mixin box(title, icon)
 	.box
 		if title
 			.box-title
-				h3= title
+				h3
+					if icon
+						span.icon(class!=icon)
+					| #{title}
 		.box-body
 			if block
 				block

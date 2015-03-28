@@ -3,28 +3,33 @@
 @import 'rupture'
 
 enable-em-breakpoints = true
-rupture.mobile-cutoff = 767px
+//rupture.mobile-cutoff = 767px
+rupture.mobile-cutoff = 914px
 rupture.desktop-cutoff = 1150px
 
 html
 	margin 0
 	padding 0
 	font 10px Verdana, Arial, sans-serif
-	background-color #eeeeee
-
+	background-color #f1f1f1
 for index in (0..7)
 	size = 36em + index * 12em
 	@media only screen and (min-width: size )
 		html
 			font-size (10px + index)
 
+body
+	margin 0
+	padding 0
+
+
 header
 	width 100%
-	background-color #f5f5f5
+	background-color #0085be
+	color #ffffff
+	cf()
 
-header div
-	//margin: 0 auto
-	//max-width: 866px
+header > div
 	column(6/8, offset:1/8)
 	padding 0.714em 0px
 
@@ -32,35 +37,42 @@ h1
 	margin 0
 
 .clearfix
-	//clear both
 	cf()
+
+#container
+	margin-bottom 36px
 
 #box-container
 	margin 1.428em 0px
 	column(6/8, offset:1/8)
-	//padding 0em 3.571em
+	position relative
 
 .box
-	margin 0.25rem 0
+	margin-bottom 1.5em
+	background-color #ffffff
+	display block
 	+mobile()
-		column(1/1, cycle: 1)
+		width 100%
 	+tablet()
-		column(1/2, cycle: 2)
+		width 48.5%
 	+desktop()
-		column(1/4, cycle: 4)
+		width 22.75%
 	+hd()
-		column(1/4, cycle: 4)
-	//border-radius 0.2rem
-	//box-shadow 0px 3px 5px 0px rgba(50, 50, 50, 0.25)
+		width 22.75%
+	border-radius 3px
+	box-shadow 0px 3px 5px 0px rgba(50, 50, 50, 0.25)
+    //box-shadow 0 1px 5px 0 rgba(0, 0, 0, 0.2)
 
 .box-title
-	background-color #cccccc
+	border-bottom 1px solid #cccccc
+	margin 0.5em 0.5em 0 0.5em
+	padding 0 0 0.5em 0
 
 .box-title h3
 	margin 0em
 
 .box-body
-	background-color #ffffff
+	padding 0.5em
 
 footer
 	position fixed
@@ -68,9 +80,111 @@ footer
 	left 0
 	right 0
 	width 100%
-	background-color #f5f5f5
+	background-color #39424d
+	color #ffffff
 
-footer div
-	//margin 0 auto
+footer > div
 	padding 0.714em 0px
 	column(6/8, offset:1/8)
+
+footer div a, footer div a:active, footer div a:visited
+	margin 0 0.5em
+	text-decoration none
+	color #ffffff
+
+footer div a:nth-child(1)
+	margin-left 0
+
+footer div a:hover
+	text-decoration underline
+
+footer .copy
+	float right
+	margin 0
+	padding 0
+
+input, select
+	padding 0.3em
+	border 1px solid #cccccc
+	border-radius 3px 0px 0px 3px
+	height 18px
+	min-width 139px
+
+select
+	height 28px
+	min-width 74px
+
+button, .button
+	cursor pointer
+	border-radius 0px 3px 3px 0px
+	background #0085be
+	color #ffffff
+	border 1px solid #0085be
+	display inline-block
+	padding 0.3em
+	height 18
+
+button:hover, .button:hover
+	background: #0074A2
+
+span.icon, a .icon
+	text-decoration none
+
+// *** Box specifikus design ***
+#in_hash_str
+	border-radius 3px
+	width 90%
+	margin 0 auto
+	display block
+	margin-bottom 5px;
+
+#genhashbtn, #genpasswordbtn
+	border-radius 3px
+
+#out_hash
+	word-break break-all
+
+.news
+	padding 0.8em 0
+	border-bottom 1px dashed #cccccc
+
+.news a, .news a:active, .news a:visited
+	color #0085BE
+	text-decoration none
+
+.news a:hover
+	text-decoration underline
+
+.box .news:last-child
+	border-bottom none
+
+.news_desc
+	display none
+	padding-top 0.5em
+	font-size 0.8em
+
+.expandbtn
+	float right
+	cursor pointer
+	text-decoration none
+
+.expandbtn > span, .expandbtn:hover > span, .news a.expandbtn:hover
+	text-decoration none
+	color #cccccc
+
+.expandbtn:hover > span, .news a.expandbtn:hover
+	color #0085BE
+
+.read-more
+	text-align right
+	padding-top 0.2em
+
+.github
+	align(h)
+
+.github a, .github a:hover
+	text-decoration none
+	color #cccccc
+
+.github a:hover
+	color #ffffff
