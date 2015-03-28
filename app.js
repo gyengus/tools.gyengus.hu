@@ -8,8 +8,9 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 
 var app = express();
-app.APP_VERSION = "N/A";
 
+// Read version from package.json
+app.APP_VERSION = "N/A";
 var fs = require('fs');
 fs.readFile('package.json', 'utf8', function (err, data) {
 	if (err) console.log(err);
@@ -17,6 +18,7 @@ fs.readFile('package.json', 'utf8', function (err, data) {
 	app.APP_VERSION = package_data.version;
 	console.log('Application version: ' + app.APP_VERSION);
 });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'web/views'));
 app.set('view engine', 'jade');
@@ -36,7 +38,7 @@ app.use('/files', express.static('downloads'));
 app.use(function (req, res, next) {
 	req.APP_VERSION = app.APP_VERSION;
 	var most = new Date(); // Ezt a dátumformázást be kellene rakni a Date.prototype-ba
-	console.log('Time:', most.getFullYear() + '-' + (most.getMonth() + 1) + '-' + most.getDate() + ' ' + most.getHours() + ':' + most.getMinutes() + ':' + most.getSeconds() + '.' + most.getMilliseconds());
+	//console.log('Time:', most.getFullYear() + '-' + (most.getMonth() + 1) + '-' + most.getDate() + ' ' + most.getHours() + ':' + most.getMinutes() + ':' + most.getSeconds() + '.' + most.getMilliseconds());
 	fs.appendFile('logs/access.log', req.originalUrl + '\n' + JSON.stringify(req.headers) + '\n' + JSON.stringify(req.params) + '\n', function(err) {
 		if (err) console.log('Hiba az access.log írása közben: ' + err);
 	});
@@ -81,7 +83,10 @@ app.use(function(err, req, res, next) {
 ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
 	'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
 	].forEach(function(element, index, array) {
-		process.on(element, function() { console.log('%s: Node server stopped.', Date(Date.now()), element ); process.exit(); });
+		process.on(element, function() {
+			console.log('%s: Node server stopped.', Date(Date.now()), element);
+			process.exit();
+		});
 	});
 
 module.exports = app;
