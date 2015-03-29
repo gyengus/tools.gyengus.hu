@@ -8,6 +8,18 @@ var fs = require('fs');
 
 var routes = require('./routes/index');
 
+// Dátum formázott kiírása: yyyy-mm-dd H:i:s
+Date.prototype.getFormattedDate = function() {
+	var time = this;
+	var month = ((time.getMonth() + 1) > 9 ? '' : '0') + (time.getMonth() + 1);
+	var day = (time.getDate() > 9 ? '' : '0') + time.getDate();
+	var hour = (time.getHours() > 9 ? '' : '0') + time.getHours();
+	var minute = (time.getMinutes() > 9 ? '' : '0') + time.getMinutes();
+	var second = (time.getSeconds() > 9 ? '' : '0') + time.getSeconds();
+	return time.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+};
+
+
 var app = express();
 
 app.LOGDIR = 'logs';
@@ -21,7 +33,8 @@ fs.readFile(__dirname + '/package.json', 'utf8', function (err, data) {
 	console.log('Application version: ' + app.APP_VERSION);
 });
 
-console.log('Dirname: ' + __dirname);
+//console.log('Dirname: ' + __dirname);
+//console.log('Dátum: ' + new Date().getFormattedDate());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'web/views'));
@@ -87,7 +100,7 @@ app.use(function(err, req, res, next) {
 	'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
 	].forEach(function(element, index, array) {
 		process.on(element, function() {
-			console.log('%s: Node server stopped by %s signal.', Date(Date.now()), element);
+			console.log('%s: Node server stopped by %s signal.', new Date().getFormattedDate(), element);
 			process.exit();
 		});
 	});

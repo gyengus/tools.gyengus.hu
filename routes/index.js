@@ -6,7 +6,6 @@ var dns = require('dns');
 var crypto = require('crypto');
 
 var news = require('../lib/news');
-console.log(news);
 
 // Index
 router.get('/', function(req, res, next) {

@@ -1,7 +1,7 @@
 {
   "name": "tools.gyengus.hu",
   "version": "0.0.1",
-  "description": "Node module for communication with temperature sensor DS1621",
+  "description": "Some tools on one page for web developers",
   "private": true,
   "main": "app.js",
   "scripts": {
