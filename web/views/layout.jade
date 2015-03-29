@@ -11,7 +11,9 @@ html
 	body
 		header
 			div
-				h1 #{title}
+				h1
+					a(href='/', target='_top')
+						| #{title}
 					sup v#{app_version}
 						| (pre alpha)
 		#container

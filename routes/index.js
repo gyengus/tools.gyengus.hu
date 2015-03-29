@@ -9,11 +9,9 @@ var news = require('../lib/news');
 
 // Index
 router.get('/', function(req, res, next) {
-	news.read(function(news) {
-		//console.log('news: ' + news);
+	news.read(req.sys_logger, function(news) {
 		var ip = req.connection.remoteAddress;
-		//console.log('Client IP: ' + ip);
-		res.render('index', { title: 'tools.gyengus.hu', ip: ip, app_version: req.APP_VERSION, news: news });
+		res.render('index', { title: req.APP_NAME, ip: ip, app_version: req.APP_VERSION, news: news });
 	});
 });
 
@@ -36,8 +34,9 @@ router.get('/api/gethostname/:ip', function(req, res, next) {
 	// Reverse resolves an ip address to an array of hostnames.
 	dns.reverse(req.params.ip, function(err, hostname) {
 		if (err) {
-			console.log(err);
+			//console.log(err);
 			hostname = [req.params.ip];
+			req.sys_logger.write(err, 'error');
 		}
 		//console.log(hostname);
 		res.send(hostname);
@@ -48,16 +47,18 @@ router.get('/api/gethostname/:ip', function(req, res, next) {
 router.get('/api/getip/:hostname', function(req, res, next) {
     var dns = require('dns');
     dns.resolve(req.params.hostname, function(err, ip) {
-		if (err) console.log(err);
-		//console.log(ip);
-        res.send(ip);
+		if (err) {
+			req.sys_logger.write(err, 'error');
+			res.send(['Nem sikerült lekérdezni a szerver IP címét.']);
+		} else {
+        	res.send(ip);
+		}
     });
 });
 
 // Hash kódolás (MD5, SHA1)
 router.get('/api/genhash/:hash/:str', function(req, res, next) {
     var hash = crypto.createHash(req.params.hash).update(req.params.str).digest('hex');
-    //console.log(req.params.hash + '(' + req.params.str + ') = ' + hash);
     res.send(hash);
 });
 

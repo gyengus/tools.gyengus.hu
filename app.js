@@ -6,6 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
+var Logger = require('./lib/logger');
+var sys_logger = new Logger({logdir: __dirname + '/logs/'});
+
 var routes = require('./routes/index');
 
 // Dátum formázott kiírása: yyyy-mm-dd H:i:s
@@ -22,7 +25,9 @@ Date.prototype.getFormattedDate = function() {
 
 var app = express();
 
+app.APP_NAME = 'tools.gyengus.hu';
 app.LOGDIR = 'logs';
+app.sys_logger = sys_logger;
 
 // Read version from package.json
 app.APP_VERSION = "N/A";
@@ -30,7 +35,7 @@ fs.readFile(__dirname + '/package.json', 'utf8', function (err, data) {
 	if (err) console.log(err);
 	var package_data = JSON.parse(data);
 	app.APP_VERSION = package_data.version;
-	console.log('Application version: ' + app.APP_VERSION);
+	sys_logger.write('Application started, version: ' + app.APP_VERSION, 'system');
 });
 
 //console.log('Dirname: ' + __dirname);
@@ -53,11 +58,8 @@ app.use(__dirname + '/files', express.static('downloads'));
 // a middleware with no mount path, gets executed for every request to the router
 app.use(function (req, res, next) {
 	req.APP_VERSION = app.APP_VERSION;
-	/*var most = new Date(); // Ezt a dátumformázást be kellene rakni a Date.prototype-ba
-	//console.log('Time:', most.getFullYear() + '-' + (most.getMonth() + 1) + '-' + most.getDate() + ' ' + most.getHours() + ':' + most.getMinutes() + ':' + most.getSeconds() + '.' + most.getMilliseconds());
-	fs.appendFile(app.LOGDIR + '/access.log', req.originalUrl + '\n' + JSON.stringify(req.headers) + '\n' + JSON.stringify(req.params) + '\n', function(err) {
-		if (err) console.log('Hiba az access.log írása közben: ' + err);
-	});*/
+	req.APP_NAME = app.APP_NAME;
+	req.sys_logger = sys_logger;
 	next();
 });
 
@@ -76,8 +78,12 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
 	app.use(function(err, req, res, next) {
+		var logerror = err.message + '\nURL: ' + req.originalUrl + '\nHeaders: ' + JSON.stringify(req.headers) + '\nError: ' + JSON.stringify(err) + '\nStack: ' + err.stack;
+		req.sys_logger.write(logerror, 'error');
 		res.status(err.status || 500);
 		res.render('error', {
+			title: req.APP_NAME,
+			app_version: req.APP_VERSION,
 			message: err.message,
 			error: err
 		});
@@ -89,7 +95,11 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
 	// mentsük fájlba
+	var logerror = err.message + '\nURL: ' + req.originalUrl + '\nHeaders: ' + JSON.stringify(req.headers) + '\nError: ' + JSON.stringify(err) + '\nStack: ' + err.stack;
+	req.sys_logger.write(logerror, 'error');
 	res.render('error', {
+		title: req.APP_NAME,
+		app_version: req.APP_VERSION,
 		message: err.message,
 		error: {}
 	});
@@ -100,8 +110,10 @@ app.use(function(err, req, res, next) {
 	'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
 	].forEach(function(element, index, array) {
 		process.on(element, function() {
-			console.log('%s: Node server stopped by %s signal.', new Date().getFormattedDate(), element);
-			process.exit();
+			//console.log('%s: Node server stopped by %s signal.', new Date().getFormattedDate(), element);
+			app.sys_logger.write('Application stopped by ' + element + ' signal', 'system', function() {
+				process.exit();
+			});
 		});
 	});
 
