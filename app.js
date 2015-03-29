@@ -111,7 +111,7 @@ app.use(function(err, req, res, next) {
 	].forEach(function(element, index, array) {
 		process.on(element, function() {
 			//console.log('%s: Node server stopped by %s signal.', new Date().getFormattedDate(), element);
-			app.sys_logger.write('Application stopped by ' + element + ' signal', 'system', function() {
+			sys_logger.write('Application stopped by ' + element + ' signal', 'system', function() {
 				process.exit();
 			});
 		});

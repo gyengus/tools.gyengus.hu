@@ -14,7 +14,7 @@ var ip_address = process.env.OPENSHIFT_NODEJS_IP || process.env.NODE_IP || '0.0.
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '51635');
 app.set('port', port);
 
 /**
@@ -28,8 +28,8 @@ var server = http.createServer(app);
  */
 
 server.listen(port, ip_address, function() {
-	console.log('Application version: ' + app.APP_VERSION);
-    console.log('Listening: ' + server.address().address + ':' + server.address().port);
+    //console.log('Listening: ' + server.address().address + ':' + server.address().port);
+	app.sys_logger.write('Listening: ' + server.address().address + ':' + server.address().port, 'system');
 });
 server.on('error', onError);
 server.on('listening', onListening);
