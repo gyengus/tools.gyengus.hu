@@ -28,6 +28,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port, ip_address, function() {
+	console.log('Application version: ' + app.APP_VERSION);
     console.log('Listening: ' + server.address().address + ':' + server.address().port);
 });
 server.on('error', onError);
