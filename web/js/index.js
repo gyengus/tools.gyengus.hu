@@ -40,7 +40,7 @@ $(function() {
 		type: 'GET',
 		success: function(ret) {
 			//console.log(ret);
-			$('#hostname').html(ret[0]);
+			$('#hostname').html('Hostname: ' + ret[0]);
 			msnry.layout();
 		}
 	});
