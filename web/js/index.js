@@ -77,6 +77,7 @@ $(function() {
 
 	$('#gethostnamebtn').click(function() {
 		if ($('#in_ip').val()) {
+			$('#hostloader').show();
 			$('#out_hostname').html('');
 			$.ajax({
 				url: 'api/gethostname/' + $('#in_ip').val(),
@@ -84,6 +85,7 @@ $(function() {
 				success: function(ret) {
 					//console.log(ret);
 					$('#out_hostname').html('Hostname: ' + ret[0]);
+					$('#hostloader').hide();
 					msnry.layout();
 				}
 			});
@@ -93,6 +95,7 @@ $(function() {
 
 	$('#getipbtn').click(function() {
 		if ($('#in_hostname').val()) {
+			$('#iploader').show();
 			$('#out_ip').html('');
 			$.ajax({
 				url: 'api/getip/' + $('#in_hostname').val(),
@@ -100,6 +103,7 @@ $(function() {
 				success: function(ret) {
 					//console.log(ret);
 					$('#out_ip').html('IP: ' + ret[0]);
+					$('#iploader').hide();
 					msnry.layout();
 				}
 			});
@@ -124,7 +128,7 @@ $(function() {
 	});
 
 	$('.expandbtn').click(function() {
-		var news_desc = $(this).next();
+		var news_desc = $(this).next().next();
 		if ($(news_desc).css('display') == 'block') {
 			$(this).find('span').removeClass('icon-circle-up').addClass('icon-circle-down');
 			$(news_desc).slideUp(function() {

@@ -42,12 +42,14 @@ block content
 			input#in_ip(name='in_ip', placeholder='IP', data-click='#gethostnamebtn')
 			button#gethostnamebtn
 				span.icon.icon-search
+			img#hostloader(src='images/loader.gif')
 			br
 			span#out_hostname
 		+box('IP lekérdezése')
 			input#in_hostname(name='in_hostname', placeholder='Hostname', data-click='#getipbtn')
 			button#getipbtn
 				span.icon.icon-search
+			img#iploader(src='images/loader.gif')
 			br
 			span#out_ip
 		+box('date();')
