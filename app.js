@@ -46,7 +46,11 @@ app.set('views', path.join(__dirname, 'web/views'));
 app.set('view engine', 'jade');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.enable('trust proxy');
+//app.enable('trust proxy');
+app.set('trust proxy', function(ip) {
+	if (ip === '127.0.0.1') return true;
+	return false;
+});
 var accesslogStream = fs.createWriteStream(__dirname + '/' + app.LOGDIR + '/access.log', {flags: 'a'});
 app.use(logger('combined', {stream: accesslogStream}));
 app.use(bodyParser.json());

@@ -45,6 +45,15 @@ $(function() {
 		}
 	});
 
+	$('input').keypress(function(key) {
+		// ha enter és van data-click akkor gombnyomás, különben true
+		if (((key.keyCode == 13) || (key.which == 13)) && $(this).attr('data-click')) {
+			$($(this).attr('data-click')).click();
+			return false;
+		}
+		return true;
+	});
+
 	// *** Gombkezelés ***
 
 	$('#genpasswordbtn').click(function() {
@@ -55,6 +64,14 @@ $(function() {
 	$('#datebtn').click(function() {
 		$('#out_date').html(calcdate());
 		msnry.layout();
+		return false;
+	});
+
+	$('#strtodatebtn').click(function() {
+		if ($('#in_date').val()) {
+			$('#out_timestamp').html(Math.ceil(new Date($('#in_date').val()).getTime() / 1000));
+			msnry.layout();
+		}
 		return false;
 	});
 

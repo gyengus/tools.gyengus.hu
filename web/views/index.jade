@@ -39,13 +39,13 @@ block content
 			br
 			div#out_hash
 		+box('Hostname lekérdezése')
-			input#in_ip(name='in_ip', placeholder='IP')
+			input#in_ip(name='in_ip', placeholder='IP', data-click='#gethostnamebtn')
 			button#gethostnamebtn
 				span.icon.icon-search
 			br
 			span#out_hostname
 		+box('IP lekérdezése')
-			input#in_hostname(name='in_hostname', placeholder='Hostname')
+			input#in_hostname(name='in_hostname', placeholder='Hostname', data-click='#getipbtn')
 			button#getipbtn
 				span.icon.icon-search
 			br
@@ -53,7 +53,7 @@ block content
 		+box('date();')
 			| UNIX timestamp:
 			br
-			input#in_timestamp
+			input#in_timestamp(data-click='#datebtn')
 			button#datebtn
 				span.icon.icon-calendar
 			br
@@ -62,7 +62,7 @@ block content
 		+box('strtodate();')
 			| Dátum, idő:
 			br
-			input#in_date
+			input#in_date(data-click='#strtodatebtn')
 			button#strtodatebtn
 				span.icon.icon-calendar
 			br

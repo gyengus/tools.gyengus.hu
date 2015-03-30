@@ -10,7 +10,7 @@ var news = require('../lib/news');
 // Index
 router.get('/', function(req, res, next) {
 	news.read(req.sys_logger, function(news) {
-		var ip = req.connection.remoteAddress;
+		var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 		res.render('index', { title: req.APP_NAME, ip: ip, app_version: req.APP_VERSION, news: news });
 	});
 });
