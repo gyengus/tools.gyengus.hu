@@ -8,7 +8,6 @@ block content
 					input(type='hidden', name='cx', value='partner-pub-9904830194934484:3774910685')
 					input(type='hidden', name='ie', value='UTF-8')
 					input#in_q(type='text', name='q', placeholder='Keresés')
-					//input(type='submit', name='sa', value='Keresés')
 			script(type='text/javascript', src='http://www.google.hu/coop/cse/brand?form=cse-search-box&lang=hu')
 		+box('IP/Host')
 			| IP:
@@ -68,8 +67,30 @@ block content
 			br
 			| UNIX timestamp:
 			span#out_timestamp
-		//+box('Támogató gombok')
-			| Flattr, PayPal donate, Gratipay
+		+box('urlencode/urldecode')
+			input#in_uedstr(placeholder='Szöveg')
+			input(type='radio', name='uedm', id='ue', checked='checked')
+			label#uelabel(for='ue')
+				| encode
+			input(type='radio', name='uedm', id='ud')
+			label#udlabel(for='ud')
+				| decode
+			button#uedbtn
+				span.icon.icon-cogs
+			.clearfix
+			#out_ued
+		+box('Tetszik az oldal?')
+			.donatebtns
+				form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_blank')
+					input(type='hidden', name='cmd', value='_s-xclick')
+					input(type='hidden', name='hosted_button_id', value='C4ZRKDB77CARN')
+					input#ppdonateimg(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit', alt='PayPal - The safer, easier way to pay online!', title='PayPal - The safer, easier way to pay online!')
+					img(alt='', border='0', src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif', width='1', height='1')
+				a(href='https://www.gittip.com/gyengus/', target='_blank')
+					img(src='https://camo.githubusercontent.com/f0bbe8a500133d33f8879886f7eb89c794c20629/687474703a2f2f696d672e736869656c64732e696f2f6769747469702f6779656e6775732e737667', alt='Support us', data-canonical-src='http://img.shields.io/gittip/gyengus.svg', style='max-width:100%;')
+				br
+				a(href='https://flattr.com/submit/auto?user_id=gyengus&url=http://tools.gyengus.hu/&title=tools.gyengus.hu&description=Some%20useful%20tools%20for%20webmasters&language=hu_HU&tags=flattr,api,programming&category=software', target='_blank')
+					img(src='https://api.flattr.com/button/flattr-badge-large.png')
 		+box('Osszad meg!')
 			// Helyezd el ezt a címkét ott, ahol a(z) +1 gomb modult meg szeretnéd jeleníteni.
 			.g-plusone(data-href='http://tools.gyengus.hu/')

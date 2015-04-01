@@ -129,18 +129,21 @@ button, .button
 	height 28px
 
 button:hover, .button:hover
-	background: #0074A2
+	background #0074A2
 
 span.icon, a .icon
 	text-decoration none
 
 // *** Box specifikus design ***
-#in_hash_str
+#in_hash_str, #in_uedstr
 	border-radius 3px
 	width 90%
 	margin 0 auto
 	display block
-	margin-bottom 5px;
+	margin-bottom 5px
+
+#ue, #ud
+	min-width 10px
 
 #in_q
 	border-radius 3px
@@ -148,10 +151,23 @@ span.icon, a .icon
 	margin 0 auto
 	display block
 
-#genhashbtn, #genpasswordbtn
+#genhashbtn, #genpasswordbtn, #uedbtn
 	border-radius 3px
 
-#out_hash, #hostname
+#ue, #ud, #uelabel, #udlabel, #uedbtn
+	float left
+
+#uedbtn
+	margin-top -3px
+	margin-left 5px
+
+#in_uedstr
+	margin-bottom 10px
+
+#uelabel, #udlabel
+	margin-top 2px
+
+#out_hash, #hostname, #out_ued
 	word-break break-all
 
 #hostloader, #iploader
@@ -195,6 +211,10 @@ span.icon, a .icon
 	text-align right
 	padding-top 0.2em
 
+#ppdonateimg
+	border none
+	min-width 65px
+
 .github, .g-plusone, #___plusone_0, .fb-like, .adsbygoogle, #twitter-widget-0
 	align(h)
 
@@ -213,4 +233,7 @@ footer div.github a:hover
 
 .adsensediv
 	height 240px
+	text-align center
+
+.donatebtns
 	text-align center

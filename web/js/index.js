@@ -127,6 +127,29 @@ $(function() {
 		return false;
 	});
 
+	$('#ue').click(function() {
+		$('#ue').attr('checked', 'checked');
+		$('#ud').removeAttr('checked');
+	});
+
+	$('#ud').click(function() {
+		$('#ud').attr('checked', 'checked');
+		$('#ue').removeAttr('checked');
+	});
+
+	$('#uedbtn').click(function() {
+		if ($('#in_uedstr').val()) {
+			if ($('#ue').attr('checked')) {
+				// encode
+				$('#out_ued').html('Eredmény: ' + encodeURI($('#in_uedstr').val()));
+			} else {
+				// decode
+				$('#out_ued').html('Eredmény: ' + decodeURI($('#in_uedstr').val()));
+			}
+		}
+		return false;
+	});
+
 	$('.expandbtn').click(function() {
 		var news_desc = $(this).next().next();
 		if ($(news_desc).css('display') == 'block') {
