@@ -31,7 +31,7 @@ app.sys_logger = sys_logger;
 
 // Read version from package.json
 app.APP_VERSION = "N/A";
-fs.readFile(__dirname + '/package.json', 'utf8', function (err, data) {
+fs.readFile(__dirname + '/package.json', 'utf8', function(err, data) {
 	if (err) console.log(err);
 	var package_data = JSON.parse(data);
 	app.APP_VERSION = package_data.version;
