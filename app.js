@@ -1,3 +1,8 @@
+#!/usr/bin/env node
+
+//var debug = require('debug')('tools.gyengus.hu:server');
+var http = require('http');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,7 +16,7 @@ var sys_logger = new Logger({logdir: __dirname + '/logs/'});
 
 var routes = require('./routes/index');
 
-// Dátum formázott kiírása: yyyy-mm-dd H:i:s
+// Date format: yyyy-mm-dd H:i:s
 Date.prototype.getFormattedDate = function() {
 	var time = this;
 	var month = ((time.getMonth() + 1) > 9 ? '' : '0') + (time.getMonth() + 1);
@@ -22,24 +27,18 @@ Date.prototype.getFormattedDate = function() {
 	return time.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
 };
 
-
 var app = express();
 
-app.APP_NAME = 'tools.gyengus.hu';
-app.LOGDIR = 'logs';
 app.sys_logger = sys_logger;
 
-// Read version from package.json
-app.APP_VERSION = "N/A";
-fs.readFile(__dirname + '/package.json', 'utf8', function(err, data) {
-	if (err) console.log(err);
-	var package_data = JSON.parse(data);
-	app.APP_VERSION = package_data.version;
-	sys_logger.write('Application started, version: ' + app.APP_VERSION, 'system');
-});
+// Read configuration from config.json
+var CONFIG = require('./config.json');
+app.APP_NAME = CONFIG.name;
+app.LOGDIR = CONFIG.logdir;
 
-//console.log('Dirname: ' + __dirname);
-//console.log('Dátum: ' + new Date().getFormattedDate());
+// Read version from package.json
+app.APP_VERSION = require('./package.json').version;
+sys_logger.write('Application started, version: ' + app.APP_VERSION, 'system');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'web/views'));
@@ -109,16 +108,89 @@ app.use(function(err, req, res, next) {
 	});
 });
 
-// signal kezelés
+// signal handler
 ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
 	'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
 	].forEach(function(element, index, array) {
 		process.on(element, function() {
-			//console.log('%s: Node server stopped by %s signal.', new Date().getFormattedDate(), element);
 			sys_logger.write('Application stopped by ' + element + ' signal', 'system', function() {
 				process.exit();
 			});
 		});
 	});
 
-module.exports = app;
+// Listening IP address
+var ip_address = CONFIG.address || process.env.OPENSHIFT_NODEJS_IP || process.env.NODE_IP || '0.0.0.0';
+
+/**
+ * Get port from environment and store in Express.
+ */
+var port = normalizePort(CONFIG.port || process.env.PORT || '51635');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+server.listen(port, ip_address, function() {
+	app.sys_logger.write('Listening: ' + server.address().address + ':' + server.address().port, 'system');
+});
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val) {
+	var port = parseInt(val, 10);
+
+	if (isNaN(port)) {
+		// named pipe
+		return val;
+	}
+
+	if (port >= 0) {
+		// port number
+		return port;
+  	}
+
+	return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+function onError(error) {
+	if (error.syscall !== 'listen') {
+		throw error;
+	}
+
+	var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+
+	// handle specific listen errors with friendly messages
+	switch (error.code) {
+		case 'EACCES':
+			console.error(bind + ' requires elevated privileges');
+			process.exit(1);
+			break;
+		case 'EADDRINUSE':
+			console.error(bind + ' is already in use');
+			process.exit(1);
+			break;
+		default:
+			throw error;
+	}
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+function onListening() {
+	var addr = server.address();
+	var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+	app.sys_logger.write('Debug: Listening on ' + bind, "system");
+}

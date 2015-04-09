@@ -1,0 +1,6 @@
+{
+	"name": "tools.gyengus.hu",
+	"address": "127.0.0.1",
+	"port": 51635,
+	"logdir": "logs"
+}

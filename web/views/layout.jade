@@ -4,6 +4,7 @@ html
 	head
 		meta(charset='utf-8')
 		title= title
+		// Meta és OpenGraph adatok...
 		link(rel='icon', href='favicon.ico')
 		link(rel='stylesheet', href='/css/icons.css')
 		link(rel='stylesheet', href='/css/style.css')
@@ -26,7 +27,6 @@ html
 					a(href='/', target='_top')
 						| #{title}
 					sup v#{app_version}
-						| (pre alpha)
 		#container
 			block content
 		footer

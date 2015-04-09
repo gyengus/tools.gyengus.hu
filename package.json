@@ -1,11 +1,11 @@
 {
   "name": "tools.gyengus.hu",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Some tools on one page for web developers",
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./app.js"
   },
   "keywords": [
     "tools",
