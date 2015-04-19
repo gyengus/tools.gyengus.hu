@@ -2,8 +2,8 @@
 	"apps" : [{
 		"name"        : "tools.gyengus.hu",
 		"script"      : "app.js",
-		"ignore_watch" : ["node_modules", "logs", "logs/*", "public"],
-		"watch"       : true,
+		"watch"       : ["app.js", "lib", "config.json", "packages.json", "routes"],
+		"ignore_watch" : ["node_modules", "logs", "logs/*", "public", ".git"],
 		"cwd"         : "/mnt/data/nodejs_apps/tools.gyengus.hu",
 		"exec_mode"  : "fork_mode"
 	}],
