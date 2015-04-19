@@ -7,7 +7,6 @@ var fs = require('fs');
 var rimraf = require('rimraf');
 
 gulp.task( 'clean-web', function(callback) {
-    //callback();
 	if( fs.existsSync('./public/') )
 		rimraf('./public/', callback );
 	else callback();

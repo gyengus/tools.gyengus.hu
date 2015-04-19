@@ -3,7 +3,6 @@ var gulp = global.gulp;
 var fs = require('fs');
 
 var _ = global._ = require('lodash');
-//var async = global.async = require('async');
 
 var gutil = require("gulp-util");
 

@@ -2,9 +2,18 @@ include box.jade
 doctype html
 html
 	head
-		meta(charset='utf-8')
 		title= title
-		// Meta és OpenGraph adatok...
+		meta(charset='utf-8')
+		meta(http-equiv='content-language', content='hu')
+		meta(name='description', content='#{site_desc}')
+		meta(name='keywords', content='#{site_keywords}')
+		meta(property='og:site_name', content='#{title}')
+		meta(property='og:title', content='#{title}')
+		meta(property='og:description', content='#{site_desc}')
+		meta(property='og:url', content='#{site_url}')
+		meta(property='og:image', content='#{site_image}')
+		meta(property='og:type', content='website')
+		meta(property='og:locale', content='hu_HU')
 		link(rel='icon', href='favicon.ico')
 		link(rel='stylesheet', href='/css/icons.css')
 		link(rel='stylesheet', href='/css/style.css')
@@ -27,6 +36,8 @@ html
 					a(href='/', target='_top')
 						| #{title}
 					sup v#{app_version}
+				div
+					| #{site_desc}
 		#container
 			block content
 		footer

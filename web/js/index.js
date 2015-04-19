@@ -39,14 +39,12 @@ $(function() {
 		url: 'api/gethostname/' + $('#ip').html(),
 		type: 'GET',
 		success: function(ret) {
-			//console.log(ret);
 			$('#hostname').html('Hostname: ' + ret[0]);
 			msnry.layout();
 		}
 	});
 
 	$('input').keypress(function(key) {
-		// ha enter és van data-click akkor gombnyomás, különben true
 		if (((key.keyCode == 13) || (key.which == 13)) && $(this).attr('data-click')) {
 			$($(this).attr('data-click')).click();
 			return false;
@@ -54,7 +52,7 @@ $(function() {
 		return true;
 	});
 
-	// *** Gombkezelés ***
+	// *** Button handlers ***
 
 	$('#genpasswordbtn').click(function() {
 		genpassword(msnry);

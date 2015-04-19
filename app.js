@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-
-//var debug = require('debug')('tools.gyengus.hu:server');
 var http = require('http');
 
 var express = require('express');
@@ -36,6 +33,12 @@ var CONFIG = require('./config.json');
 app.APP_NAME = CONFIG.name;
 app.LOGDIR = CONFIG.logdir;
 
+if (process.argv[2] === '--development') {
+	app.DEVMODE = true;
+} else {
+	app.DEVMODE = false;
+}
+
 // Read version from package.json
 app.APP_VERSION = require('./package.json').version;
 sys_logger.write('Application started, version: ' + app.APP_VERSION, 'system');
@@ -62,6 +65,7 @@ app.use(__dirname + '/files', express.static('downloads'));
 app.use(function (req, res, next) {
 	req.APP_VERSION = app.APP_VERSION;
 	req.APP_NAME = app.APP_NAME;
+	req.CONFIG = CONFIG;
 	req.sys_logger = sys_logger;
 	next();
 });
@@ -79,7 +83,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (app.DEVMODE) {
 	app.use(function(err, req, res, next) {
 		var logerror = err.message + '\nURL: ' + req.originalUrl + '\nHeaders: ' + JSON.stringify(req.headers) + '\nError: ' + JSON.stringify(err) + '\nStack: ' + err.stack;
 		req.sys_logger.write(logerror, 'error');
@@ -97,7 +101,6 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
-	// mentsük fájlba
 	var logerror = err.message + '\nURL: ' + req.originalUrl + '\nHeaders: ' + JSON.stringify(req.headers) + '\nError: ' + JSON.stringify(err) + '\nStack: ' + err.stack;
 	req.sys_logger.write(logerror, 'error');
 	res.render('error', {
@@ -138,9 +141,9 @@ var server = http.createServer(app);
  */
 server.listen(port, ip_address, function() {
 	app.sys_logger.write('Listening: ' + server.address().address + ':' + server.address().port, 'system');
+	if (app.DEVMODE) console.log('Listening: ' + server.address().address + ':' + server.address().port);
 });
 server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -184,13 +187,4 @@ function onError(error) {
 		default:
 			throw error;
 	}
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-function onListening() {
-	var addr = server.address();
-	var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-	app.sys_logger.write('Debug: Listening on ' + bind, "system");
 }

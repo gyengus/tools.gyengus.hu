@@ -1,0 +1,20 @@
+{
+	"apps" : [{
+		"name"        : "tools.gyengus.hu",
+		"script"      : "app.js",
+		"ignore_watch" : ["node_modules", "logs", "logs/*", "public"],
+		"watch"       : true,
+		"cwd"         : "/mnt/data/nodejs_apps/tools.gyengus.hu",
+		"exec_mode"  : "fork_mode"
+	}],
+	deploy : {
+		production : {
+			user : "gyengus",
+			host : "127.0.0.1",
+			ref  : "origin/master",
+			repo : "git@github.com:gyengus/tools.gyengus.hu.git",
+			path : "/mnt/data/nodejs_apps/tools.gyengus.hu",
+			"post-deploy" : "pm2 startOrRestart pm2.json --env production"
+    	}
+	}
+}

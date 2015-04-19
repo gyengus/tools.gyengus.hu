@@ -2,5 +2,10 @@
 	"name": "tools.gyengus.hu",
 	"address": "127.0.0.1",
 	"port": 51635,
-	"logdir": "logs"
+	"logdir": "logs",
+	"site_url": "http://tools.gyengus.hu/",
+	"site_desc": "Hasznos eszközök webfejlesztőknek",
+	"site_keywords": "hasznos,eszközök,web",
+	"site_image": "http://tools.gyengus.hu/favicon.png",
+	"ga_id": "UA-52035824-3"
 }
