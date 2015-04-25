@@ -115,12 +115,14 @@ gulp.task('deploy-copy', buildTasks, function(callback) {
 	//console.log('rsync dest: ' + global.argv.dest + ' ' + global.argv.development);
 	return gulp.src('./').pipe(rsync({
 		root: './',
-		progress: (global.argv.development ? true : false),
+		progress: global.argv.development,
 		destination: global.argv.dest,
 		emptyDirectories: true,
+		times: true,
 		recursive: true,
 		exclude: ['logs/*.log'],
-		clean: true
+		clean: true,
+		silent: !global.argv.development
 	}));
 });
 
