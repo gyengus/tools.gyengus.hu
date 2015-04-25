@@ -26,14 +26,13 @@ router.get('/', function(req, res, next) {
 // Password generator
 router.get('/api/genpassword', function(req, res, next) {
 	// FankaDeli - Végtelen (részlet)
-    var dummyString = 'AvoltelmultAL.esz_MajdJonaKezemRemeg-SzemembenKonnyMertJonaViharaTengerenDeBe.leugrokDeMondomHogyNem_MeremEsNegondoldHogyTobbetNemLeh.etHiabaLoknekElenUgyisFelkelekNembiromtov@bbugranom-kellKialtokd.eavegtelennemFelel'.split('').sort(function() { return 0.5 - Math.random(); } ).join('');
+    var dummyString = 'AvoltelmultAL.esz_M@jdJonaKezemRemeg-SzemembenKonnyMertJonaViharaTengerenDeBe.leugrokDeMondomHogyNem_MeremEsNegondoldHogyTobbetNemLeh.etHiabaLoknekElenUgyisFelkelekNembiromtov@bbugranom-kellKialtokd.eavegtelennemFelel'.split('').sort(function() { return 0.5 - Math.random(); }).join('');
     var dummyNumber = '' + Math.random();
     var x = Math.floor((Math.random() * 6) + 1); // Számok száma
-    //console.log('X: ' + x);
     var tmp = 2 + x;
     if (tmp > (dummyNumber.length - 1)) tmp = dummyNumber.length - 1;
     var passwd = dummyNumber.substring(2, tmp) + dummyString.substring(0, 18);
-    passwd = passwd.split('').sort(function() { return 0.5 - Math.random(); } ).join('');
+    passwd = passwd.split('').sort(function() { return 0.5 - Math.random(); }).join('');
     res.send(passwd);
 });
 
@@ -42,11 +41,9 @@ router.get('/api/gethostname/:ip', function(req, res, next) {
 	// Reverse resolves an ip address to an array of hostnames.
 	dns.reverse(req.params.ip, function(err, hostname) {
 		if (err) {
-			//console.log(err);
 			hostname = [req.params.ip];
 			req.sys_logger.write(err, 'error');
 		}
-		//console.log(hostname);
 		res.send(hostname);
     });
 });

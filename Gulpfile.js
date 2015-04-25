@@ -10,7 +10,8 @@ gulp.task( 'clean-web', function(callback) {
 	if( fs.existsSync('./public/') )
 		rimraf('./public/', callback );
 	else callback();
-} );
+});
+
 var web = require('./gulp/web' );
 gulp.task( 'build-web', function(callback) {
 	runSequence(
@@ -31,5 +32,14 @@ gulp.task( 'watch', function(callback) {
 		'watch-web', callback
 	);
 } );
+
+// gulp deploy --dest=/path/to/destination
+gulp.task('deploy', ['build'], function(callback) {
+	var destination = argv.dest;
+	//console.log('deploy, destination: ' + argv.dest);
+	runSequence(
+		'restartapp', callback
+	);
+});
 
 gulp.task( 'default', [ 'build' ] );

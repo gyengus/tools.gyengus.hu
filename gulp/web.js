@@ -1,19 +1,16 @@
 var gulp = global.gulp;
 
 var fs = require('fs');
-
 var _ = global._ = require('lodash');
-
 var gutil = require("gulp-util");
-
 var path = require( 'path' );
-
 var jeet = global.jeet = require("jeet");
 var nib = global.nib = require('nib');
 var rupture = global.rupture = require('rupture');
 var kouto = global.kouto = require('kouto-swiss');
 var uglify = require('gulp-uglify');
-
+var rsync = require('gulp-rsync');
+var exec = require('child_process').exec;
 
 gulp.task('web-lint', function() {
 	return gulp.src( ['web/js/*.js', '!web/js/*.min.js'] )
@@ -101,9 +98,44 @@ gulp.task( 'innerWatch-web', function() {
 		global.plugins.livereload.changed(evt.path);
 	});
 });
+
 gulp.task( 'watch-web', buildTasks.concat( 'watch-static' ), function( callback ) {
 	global.plugins.livereload.listen();
 	global.runSequence(
 		[stylusGulp], [watchGulp], 'innerWatch-web', callback
 	);
+});
+
+gulp.task('deploy-copy', buildTasks, function(callback) {
+	// létre kell hozni a célkönyvtárat, ha nem létezik!
+	if (!fs.existsSync(global.argv.dest)){
+    	fs.mkdirSync(global.argv.dest);
+	}
+	// fájlok másolása rsync-el
+	//console.log('rsync dest: ' + global.argv.dest + ' ' + global.argv.development);
+	return gulp.src('./').pipe(rsync({
+		root: './',
+		progress: (global.argv.development ? true : false),
+		destination: global.argv.dest,
+		emptyDirectories: true,
+		recursive: true,
+		exclude: ['logs/*.log'],
+		clean: true
+	}));
+});
+
+gulp.task('restartapp', ['deploy-copy'], function(callback) {
+	// Change to destination directory
+	process.chdir(global.argv.dest);
+	// exec: pm2 startOrRestart pm2.json
+	exec("pm2 startOrRestart pm2.json", function(error, stdout, stderr) {
+		if (error) {
+			console.log(error);
+		} else {
+			// Save PM2 process list
+			exec("pm2 save", function(error, stdout, stderr) {
+			if (error) console.log(error);
+			callback();
+		}
+	});
 });
