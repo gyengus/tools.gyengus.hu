@@ -34,7 +34,7 @@ gulp.task( 'watch', function(callback) {
 } );
 
 // gulp deploy --dest=/path/to/destination
-gulp.task('deploy', ['build'], function(callback) {
+gulp.task('deploy', function(callback) {
 	var destination = argv.dest;
 	//console.log('deploy, destination: ' + argv.dest);
 	runSequence(

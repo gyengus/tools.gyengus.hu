@@ -112,8 +112,12 @@ gulp.task('deploy-copy', buildTasks, function(callback) {
     	fs.mkdirSync(global.argv.dest);
 	}
 	// fájlok másolása rsync-el
+	exec('rsync -qrtah --delete --exclude \'logs/*.log\' ./ ' + global.argv.dest, function(error, stdout, stderr) {
+		if (error) console.log(error);
+		callback();
+	});
 	//console.log('rsync dest: ' + global.argv.dest + ' ' + global.argv.development);
-	return gulp.src('./').pipe(rsync({
+	/*return gulp.src('./').pipe(rsync({
 		root: './',
 		progress: global.argv.development,
 		destination: global.argv.dest,
@@ -123,19 +127,19 @@ gulp.task('deploy-copy', buildTasks, function(callback) {
 		exclude: ['logs/*.log'],
 		clean: true,
 		silent: !global.argv.development
-	}));
+	}));*/
 });
 
 gulp.task('restartapp', ['deploy-copy'], function(callback) {
 	// Change to destination directory
 	process.chdir(global.argv.dest);
 	// exec: pm2 startOrRestart pm2.json
-	exec("pm2 startOrRestart pm2.json", function(error, stdout, stderr) {
+	exec('pm2 startOrRestart pm2.json', function(error, stdout, stderr) {
 		if (error) {
 			console.log(error);
 		} else {
 			// Save PM2 process list
-			exec("pm2 save", function(error, stdout, stderr) {
+			exec('pm2 save', function(error, stdout, stderr) {
 				if (error) console.log(error);
 				callback();
 			});
