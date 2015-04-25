@@ -134,8 +134,9 @@ gulp.task('restartapp', ['deploy-copy'], function(callback) {
 		} else {
 			// Save PM2 process list
 			exec("pm2 save", function(error, stdout, stderr) {
-			if (error) console.log(error);
-			callback();
+				if (error) console.log(error);
+				callback();
+			});
 		}
 	});
 });
