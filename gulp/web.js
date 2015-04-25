@@ -124,10 +124,12 @@ gulp.task('restartapp', ['deploy-copy'], function(callback) {
 	exec('pm2 startOrRestart pm2.json', function(error, stdout, stderr) {
 		if (error) {
 			console.log(error);
+		console.log(stdout);
 		} else {
 			// Save PM2 process list
 			exec('pm2 save', function(error, stdout, stderr) {
 				if (error) console.log(error);
+				console.log(stdout);
 				callback();
 			});
 		}
