@@ -9,7 +9,6 @@ var nib = global.nib = require('nib');
 var rupture = global.rupture = require('rupture');
 var kouto = global.kouto = require('kouto-swiss');
 var uglify = require('gulp-uglify');
-var rsync = require('gulp-rsync');
 var exec = require('child_process').exec;
 
 gulp.task('web-lint', function() {
