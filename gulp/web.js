@@ -116,18 +116,6 @@ gulp.task('deploy-copy', buildTasks, function(callback) {
 		if (error) console.log(error);
 		callback();
 	});
-	//console.log('rsync dest: ' + global.argv.dest + ' ' + global.argv.development);
-	/*return gulp.src('./').pipe(rsync({
-		root: './',
-		progress: global.argv.development,
-		destination: global.argv.dest,
-		emptyDirectories: true,
-		times: true,
-		recursive: true,
-		exclude: ['logs/*.log'],
-		clean: true,
-		silent: !global.argv.development
-	}));*/
 });
 
 gulp.task('restartapp', ['deploy-copy'], function(callback) {
