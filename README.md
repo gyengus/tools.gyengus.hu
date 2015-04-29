@@ -1,6 +1,6 @@
 # tools.gyengus.hu
 
-[![Support us](http://img.shields.io/gittip/gyengus.svg)](https://www.gittip.com/gyengus/) [![Latest release](https://img.shields.io/github/release/gyengus/tools.gyengus.hu.svg)](https://github.com/gyengus/tools.gyengus.hu/releases/latest)
+[![Latest release](https://img.shields.io/github/release/gyengus/tools.gyengus.hu.svg)](https://github.com/gyengus/tools.gyengus.hu/releases/latest) [![Support us](http://img.shields.io/gittip/gyengus.svg)](https://www.gittip.com/gyengus/)
 
 Some tools on one page for web developers
 
