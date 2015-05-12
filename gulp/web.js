@@ -112,8 +112,8 @@ gulp.task('deploy-copy', buildTasks, function(callback) {
 	}
 	// fájlok másolása rsync-el
 	exec('rsync -qrtah --delete --exclude \'logs/*.log\' ./ ' + global.argv.dest, function(error, stdout, stderr) {
-		if (error) console.log(error);
-		callback();
+		if (error) return callback(new Error(error));
+		return callback();
 	});
 });
 
@@ -123,13 +123,13 @@ gulp.task('restartapp', ['deploy-copy'], function(callback) {
 	// exec: pm2 startOrRestart pm2.json
 	exec('pm2 startOrRestart pm2.json', function(error, stdout, stderr) {
 		if (error) {
-			console.log(error);
+			return callback(new Error(error));
 		} else {
 			console.log(stdout);
 			// Save PM2 process list
 			exec('pm2 save', function(error, stdout, stderr) {
-				if (error) console.log(error);
-				callback();
+				if (error) return callback(new Error(error));
+				return callback();
 			});
 		}
 	});

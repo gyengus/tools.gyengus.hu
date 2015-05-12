@@ -42,4 +42,18 @@ gulp.task('deploy', function(callback) {
 	);
 });
 
+gulp.task('check', function(callback) {
+	// configból port betöltése
+	var CONFIG = require('./config.json');
+	// http.get, ha a válasz státusza 200, akkor ok, különben hibaüzenet
+	var http = require('http');
+	http.get('http://localhost:' + CONFIG.port, function(res) {
+		if (res.statusCode == 200) return callback();
+		return callback(new Error('on get http://localhost:' + CONFIG.port + ' received status code: ' + res.statusCode));
+	}).on('error', function(err) {
+		return callback(new Error('on get http://localhost:' + CONFIG.port + ' ' + err.message));
+		//process.exit(1);
+	});
+});
+
 gulp.task( 'default', [ 'build' ] );
