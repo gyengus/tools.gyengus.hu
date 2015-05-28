@@ -1,5 +1,12 @@
-var http = require('http');
+// Read configuration from config.json
+var CONFIG = require('./config.json');
 
+if (CONFIG.pmx) {
+	var pmx = require('pmx'); // must init pmx before requiring any http module (before requiring express, hapi or other)
+	pmx.init();
+}
+
+var http = require('http');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,29 +14,24 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-
 var Logger = require('./lib/logger');
-var sys_logger = new Logger({logdir: __dirname + '/logs/'});
-
 var routes = require('./routes/index');
 
 // Date format: yyyy-mm-dd H:i:s
 Date.prototype.getFormattedDate = function() {
-	var time = this;
-	var month = ((time.getMonth() + 1) > 9 ? '' : '0') + (time.getMonth() + 1);
-	var day = (time.getDate() > 9 ? '' : '0') + time.getDate();
-	var hour = (time.getHours() > 9 ? '' : '0') + time.getHours();
-	var minute = (time.getMinutes() > 9 ? '' : '0') + time.getMinutes();
-	var second = (time.getSeconds() > 9 ? '' : '0') + time.getSeconds();
-	return time.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+	var month = ((this.getMonth() + 1) > 9 ? '' : '0') + (this.getMonth() + 1);
+	var day = (this.getDate() > 9 ? '' : '0') + this.getDate();
+	var hour = (this.getHours() > 9 ? '' : '0') + this.getHours();
+	var minute = (this.getMinutes() > 9 ? '' : '0') + this.getMinutes();
+	var second = (this.getSeconds() > 9 ? '' : '0') + this.getSeconds();
+	return this.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
 };
+
+var sys_logger = new Logger({logdir: __dirname + '/' + CONFIG.logdir + '/'});
 
 var app = express();
 
 app.sys_logger = sys_logger;
-
-// Read configuration from config.json
-var CONFIG = require('./config.json');
 app.APP_NAME = CONFIG.name;
 app.LOGDIR = CONFIG.logdir;
 
@@ -62,7 +64,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(__dirname + '/files', express.static('downloads'));
 
 // a middleware with no mount path, gets executed for every request to the router
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
 	req.APP_VERSION = app.APP_VERSION;
 	req.APP_NAME = app.APP_NAME;
 	req.CONFIG = CONFIG;

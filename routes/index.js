@@ -8,7 +8,7 @@ var crypto = require('crypto');
 var news = require('../lib/news');
 
 // Index
-router.get('/', function(req, res, next) {
+router.get('/', function getIndexPage(req, res, next) {
 	news.read(req.sys_logger, function(news) {
 		var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 		res.render('index', { title: req.APP_NAME,
@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 });
 
 // Password generator
-router.get('/api/genpassword', function(req, res, next) {
+router.get('/api/genpassword', function getGenPassword(req, res, next) {
 	// FankaDeli - Végtelen (részlet)
     var dummyString = 'AvoltelmultAL.esz_M@jdJonaKezemRemeg-SzemembenKonnyMertJonaViharaTengerenDeBe.leugrokDeMondomHogyNem_MeremEsNegondoldHogyTobbetNemLeh.etHiabaLoknekElenUgyisFelkelekNembiromtov@bbugranom-kellKialtokd.eavegtelennemFelel'.split('').sort(function() { return 0.5 - Math.random(); }).join('');
     var dummyNumber = '' + Math.random();
@@ -37,7 +37,7 @@ router.get('/api/genpassword', function(req, res, next) {
 });
 
 // Hostname lookup by IP
-router.get('/api/gethostname/:ip', function(req, res, next) {
+router.get('/api/gethostname/:ip', function getHostname(req, res, next) {
 	// Reverse resolves an ip address to an array of hostnames.
 	dns.reverse(req.params.ip, function(err, hostname) {
 		if (err) {
@@ -49,7 +49,7 @@ router.get('/api/gethostname/:ip', function(req, res, next) {
 });
 
 // IP lookup by hostname
-router.get('/api/getip/:hostname', function(req, res, next) {
+router.get('/api/getip/:hostname', function getIP(req, res, next) {
     var dns = require('dns');
     dns.resolve(req.params.hostname, function(err, ip) {
 		if (err) {
@@ -62,7 +62,7 @@ router.get('/api/getip/:hostname', function(req, res, next) {
 });
 
 // Calculate hash (MD5, SHA1, etc.)
-router.get('/api/genhash/:hash/:str', function(req, res, next) {
+router.get('/api/genhash/:hash/:str', function getCalculateHash(req, res, next) {
     var hash = crypto.createHash(req.params.hash).update(req.params.str).digest('hex');
     res.send(hash);
 });

@@ -3,6 +3,7 @@
 	"address": "127.0.0.1",
 	"port": 51635,
 	"logdir": "logs",
+	"pmx": true,
 	"site_url": "http://tools.gyengus.hu/",
 	"site_desc": "Hasznos eszközök webfejlesztőknek",
 	"site_keywords": "hasznos,eszközök,web",
