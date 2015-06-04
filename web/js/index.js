@@ -31,6 +31,7 @@ $(function() {
 
 	$('#in_timestamp').val(Math.ceil(new Date().getTime() / 1000));
 	$('#out_date').html(calcdate());
+	//$('#in_date').val($('#out_date').html().replace(' ', 'T'));
 	$('#in_date').val($('#out_date').html());
 	$('#out_timestamp').html($('#in_timestamp').val());
 	msnry.layout();
@@ -81,7 +82,6 @@ $(function() {
 				url: 'api/gethostname/' + $('#in_ip').val(),
 				type: 'GET',
 				success: function(ret) {
-					//console.log(ret);
 					$('#out_hostname').html('Hostname: ' + ret[0]);
 					$('#hostloader').hide();
 					msnry.layout();
@@ -99,7 +99,6 @@ $(function() {
 				url: 'api/getip/' + $('#in_hostname').val(),
 				type: 'GET',
 				success: function(ret) {
-					//console.log(ret);
 					$('#out_ip').html('IP: ' + ret[0]);
 					$('#iploader').hide();
 					msnry.layout();
@@ -113,10 +112,9 @@ $(function() {
 		if ($('#in_hash_str').val()) {
 			$('#out_hash').html('');
 			$.ajax({
-				url: 'api/genhash/' + $('#in_hash').val() + '/' + $('#in_hash_str').val(),
+				url: 'api/genhash/' + $('#in_hash').val() + '/' + encodeURIComponent($('#in_hash_str').val()),
 				type: 'GET',
 				success: function(ret) {
-					//console.log(ret);
 					$('#out_hash').html('Eredmény: ' + ret);
 					msnry.layout();
 				}

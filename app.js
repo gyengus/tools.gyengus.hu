@@ -6,6 +6,17 @@ if (CONFIG.pmx) {
 	pmx.init();
 }
 
+// Date format: yyyy-mm-dd H:i:s
+global.getFormattedDate = function() {
+	var time = new Date();
+	var month = ((time.getMonth() + 1) > 9 ? '' : '0') + (time.getMonth() + 1);
+	var day = (time.getDate() > 9 ? '' : '0') + time.getDate();
+	var hour = (time.getHours() > 9 ? '' : '0') + time.getHours();
+	var minute = (time.getMinutes() > 9 ? '' : '0') + time.getMinutes();
+	var second = (time.getSeconds() > 9 ? '' : '0') + time.getSeconds();
+	return time.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+};
+
 var http = require('http');
 var express = require('express');
 var path = require('path');
@@ -16,16 +27,6 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var Logger = require('./lib/logger');
 var routes = require('./routes/index');
-
-// Date format: yyyy-mm-dd H:i:s
-Date.prototype.getFormattedDate = function() {
-	var month = ((this.getMonth() + 1) > 9 ? '' : '0') + (this.getMonth() + 1);
-	var day = (this.getDate() > 9 ? '' : '0') + this.getDate();
-	var hour = (this.getHours() > 9 ? '' : '0') + this.getHours();
-	var minute = (this.getMinutes() > 9 ? '' : '0') + this.getMinutes();
-	var second = (this.getSeconds() > 9 ? '' : '0') + this.getSeconds();
-	return this.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
-};
 
 var sys_logger = new Logger({logdir: __dirname + '/' + CONFIG.logdir + '/'});
 
@@ -81,37 +82,23 @@ app.use(function(req, res, next) {
 	next(err);
 });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.DEVMODE) {
-	app.use(function(err, req, res, next) {
-		var logerror = err.message + '\nURL: ' + req.originalUrl + '\nHeaders: ' + JSON.stringify(req.headers) + '\nError: ' + JSON.stringify(err) + '\nStack: ' + err.stack;
-		req.sys_logger.write(logerror, 'error');
-		res.status(err.status || 500);
-		res.render('error', {
-			title: req.APP_NAME,
-			app_version: req.APP_VERSION,
-			message: err.message,
-			error: err
-		});
-	});
-}
-
-// production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
 	var logerror = err.message + '\nURL: ' + req.originalUrl + '\nHeaders: ' + JSON.stringify(req.headers) + '\nError: ' + JSON.stringify(err) + '\nStack: ' + err.stack;
 	req.sys_logger.write(logerror, 'error');
+	if (app.DEVMODE)
+		console.log(logerror);
 	res.render('error', {
 		title: req.APP_NAME,
 		app_version: req.APP_VERSION,
 		message: err.message,
-		error: {}
+		error: (app.DEVMODE ? err : {})
 	});
 });
+
+if (CONFIG.pmx) {
+	app.use(pmx.expressErrorHandler());
+}
 
 // signal handler
 ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
@@ -119,6 +106,7 @@ app.use(function(err, req, res, next) {
 	].forEach(function(element, index, array) {
 		process.on(element, function() {
 			sys_logger.write('Application stopped by ' + element + ' signal', 'system', function() {
+				if (app.DEVMODE) console.log('Application stopped by ' + element + ' signal');
 				process.exit();
 			});
 		});

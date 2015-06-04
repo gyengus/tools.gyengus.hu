@@ -4,7 +4,6 @@ var router = express.Router();
 var fs = require('fs');
 var dns = require('dns');
 var crypto = require('crypto');
-
 var news = require('../lib/news');
 
 // Index
@@ -28,8 +27,8 @@ router.get('/api/genpassword', function getGenPassword(req, res, next) {
 	// FankaDeli - Végtelen (részlet)
     var dummyString = 'AvoltelmultAL.esz_M@jdJonaKezemRemeg-SzemembenKonnyMertJonaViharaTengerenDeBe.leugrokDeMondomHogyNem_MeremEsNegondoldHogyTobbetNemLeh.etHiabaLoknekElenUgyisFelkelekNembiromtov@bbugranom-kellKialtokd.eavegtelennemFelel'.split('').sort(function() { return 0.5 - Math.random(); }).join('');
     var dummyNumber = '' + Math.random();
-    var x = Math.floor((Math.random() * 6) + 1); // Számok száma
-    var tmp = 2 + x;
+    var numberOfNumbers = Math.floor((Math.random() * 6) + 1);
+    var tmp = 2 + numberOfNumbers;
     if (tmp > (dummyNumber.length - 1)) tmp = dummyNumber.length - 1;
     var passwd = dummyNumber.substring(2, tmp) + dummyString.substring(0, 18);
     passwd = passwd.split('').sort(function() { return 0.5 - Math.random(); }).join('');
@@ -63,7 +62,7 @@ router.get('/api/getip/:hostname', function getIP(req, res, next) {
 
 // Calculate hash (MD5, SHA1, etc.)
 router.get('/api/genhash/:hash/:str', function getCalculateHash(req, res, next) {
-    var hash = crypto.createHash(req.params.hash).update(req.params.str).digest('hex');
+    var hash = crypto.createHash(req.params.hash).update(decodeURIComponent(req.params.str)).digest('hex');
     res.send(hash);
 });
 
