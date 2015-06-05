@@ -118,15 +118,12 @@ gulp.task('deploy-copy', buildTasks, function(callback) {
 });
 
 gulp.task('restartapp', ['deploy-copy'], function(callback) {
-	// Change to destination directory
 	process.chdir(global.argv.dest);
-	// exec: pm2 startOrRestart pm2.json
 	exec('pm2 startOrRestart pm2.json', function(error, stdout, stderr) {
 		if (error) {
 			return callback(new Error(error));
 		} else {
 			console.log(stdout);
-			// Save PM2 process list
 			exec('pm2 save', function(error, stdout, stderr) {
 				if (error) return callback(new Error(error));
 				return callback();

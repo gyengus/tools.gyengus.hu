@@ -6,27 +6,27 @@ var runSequence = global.runSequence = require('run-sequence');
 var fs = require('fs');
 var rimraf = require('rimraf');
 
-gulp.task( 'clean-web', function(callback) {
+gulp.task('clean-web', function(callback) {
 	if( fs.existsSync('./public/') )
 		rimraf('./public/', callback );
 	else callback();
 });
 
 var web = require('./gulp/web' );
-gulp.task( 'build-web', function(callback) {
+gulp.task('build-web', function(callback) {
 	runSequence(
 		'clean-web', web.buildTasks, callback
 	);
 } );
 
 
-gulp.task( 'build', function(callback) {
+gulp.task('build', function(callback) {
 	runSequence(
 		web.buildTasks, callback
 	);
 } );
 
-gulp.task( 'watch', function(callback) {
+gulp.task('watch', function(callback) {
 	global.developmentMode = true;
 	runSequence(
 		'watch-web', callback
@@ -43,7 +43,6 @@ gulp.task('deploy', function(callback) {
 });
 
 gulp.task('check', function(callback) {
-	// configból port betöltése
 	var CONFIG = require('./config.json');
 	// http.get, ha a válasz státusza 200, akkor ok, különben hibaüzenet
 	var http = require('http');
@@ -52,8 +51,7 @@ gulp.task('check', function(callback) {
 		return callback(new Error('on get http://localhost:' + CONFIG.port + ' received status code: ' + res.statusCode));
 	}).on('error', function(err) {
 		return callback(new Error('on get http://localhost:' + CONFIG.port + ' ' + err.message));
-		//process.exit(1);
 	});
 });
 
-gulp.task( 'default', [ 'build' ] );
+gulp.task('default', ['build']);

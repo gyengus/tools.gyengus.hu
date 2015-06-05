@@ -1,14 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
+var CONFIG = require('../config.json');
 var fs = require('fs');
 var dns = require('dns');
 var crypto = require('crypto');
-var news = require('../lib/news');
+var Logger = require('../lib/logger');
+var sys_logger = new Logger({logdir: __dirname + '/' + CONFIG.logdir + '/'});
+var newsLib = require('../lib/news');
+var news = new newsLib({sys_logger: sys_logger});
 
 // Index
 router.get('/', function getIndexPage(req, res, next) {
-	news.read(req.sys_logger, function(news) {
+	news.read(function(news) {
 		var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 		res.render('index', { title: req.APP_NAME,
 							  site_desc: req.CONFIG.site_desc,

@@ -3,7 +3,13 @@ var CONFIG = require('./config.json');
 
 if (CONFIG.pmx) {
 	var pmx = require('pmx'); // must init pmx before requiring any http module (before requiring express, hapi or other)
-	pmx.init();
+	pmx.init({
+		http: true,
+		errors: true,
+		custom_probes: true,
+		network: true,
+		ports: true
+	});
 }
 
 // Date format: yyyy-mm-dd H:i:s
