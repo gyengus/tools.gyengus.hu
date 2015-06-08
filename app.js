@@ -23,7 +23,6 @@ global.getFormattedDate = function() {
 	return time.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
 };
 
-var http = require('http');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -128,14 +127,9 @@ var port = normalizePort(CONFIG.port || process.env.PORT || '51635');
 app.set('port', port);
 
 /**
- * Create HTTP server.
- */
-var server = http.createServer(app);
-
-/**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, ip_address, function() {
+var server = app.listen(port, ip_address, function() {
 	app.sys_logger.write('Listening: ' + server.address().address + ':' + server.address().port, 'system');
 	if (app.DEVMODE) console.log('Listening: ' + server.address().address + ':' + server.address().port);
 });
