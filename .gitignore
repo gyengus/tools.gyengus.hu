@@ -31,3 +31,4 @@ public
 bootstrap_theme.jade
 cache/*.json
 *.zip
+config.json

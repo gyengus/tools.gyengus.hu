@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var CONFIG = require('../config.json');
+var CONFIG = require('../lib/configLoader').load();
 var fs = require('fs');
 var dns = require('dns');
 var crypto = require('crypto');

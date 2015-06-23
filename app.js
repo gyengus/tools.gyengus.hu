@@ -1,5 +1,5 @@
 // Read configuration from config.json
-var CONFIG = require('./config.json');
+var CONFIG = require('./lib/configLoader').load();
 
 if (CONFIG.pmx) {
 	var pmx = require('pmx'); // must init pmx before requiring any http module (before requiring express, hapi or other)
