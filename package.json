@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./app.js",
-	"test": "node ./app.js --development"
+    "test": "node ./app.js --development"
   },
   "keywords": [
     "tools",
@@ -48,6 +48,8 @@
     "nib": "^1.1.0",
     "rimraf": "^2.3.3",
     "run-sequence": "^1.1.0",
-    "rupture": "^0.6.1"
+    "rupture": "^0.6.1",
+    "should": "^7.0.1",
+    "supertest": "^1.0.1"
   }
 }
