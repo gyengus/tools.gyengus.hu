@@ -126,6 +126,8 @@ var ip_address = CONFIG.address || process.env.OPENSHIFT_NODEJS_IP || process.en
 var port = normalizePort(CONFIG.port || process.env.PORT || '51635');
 app.set('port', port);
 
+module.exports = app;
+
 /**
  * Listen on provided port, on all network interfaces.
  */
