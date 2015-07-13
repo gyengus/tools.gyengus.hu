@@ -46,7 +46,7 @@ $(function() {
 	});
 
 	$('input').keypress(function(key) {
-		if (((key.keyCode == 13) || (key.which == 13)) && $(this).attr('data-click')) {
+		if (((key.keyCode === 13) || (key.which === 13)) && $(this).attr('data-click')) {
 			$($(this).attr('data-click')).click();
 			return false;
 		}
@@ -148,7 +148,7 @@ $(function() {
 
 	$('.expandbtn').click(function() {
 		var news_desc = $(this).next().next();
-		if ($(news_desc).css('display') == 'block') {
+		if ($(news_desc).css('display') === 'block') {
 			$(this).find('span').removeClass('icon-circle-up').addClass('icon-circle-down');
 			$(news_desc).slideUp(function() {
 				msnry.layout();

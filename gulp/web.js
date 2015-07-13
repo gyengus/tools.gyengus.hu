@@ -111,7 +111,7 @@ gulp.task('deploy-copy', buildTasks, function(callback) {
     	fs.mkdirSync(global.argv.dest);
 	}
 	// fájlok másolása rsync-el
-	exec('rsync -qrtah --delete --exclude \'logs/*.log\' ./ ' + global.argv.dest, function(error, stdout, stderr) {
+	exec('rsync -qrtah --delete --exclude config.json --exclude \'logs/*.log\' ./ ' + global.argv.dest, function(error, stdout, stderr) {
 		if (error) return callback(new Error(error));
 		return callback();
 	});
