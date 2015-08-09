@@ -6,7 +6,7 @@ var fs = require('fs');
 var dns = require('dns');
 var crypto = require('crypto');
 var Logger = require('../lib/logger');
-var sys_logger = new Logger({logdir: __dirname + '/' + CONFIG.logdir + '/'});
+var sys_logger = new Logger({logdir: __dirname + '/../' + CONFIG.logdir + '/'});
 var newsLib = require('../lib/news');
 var news = new newsLib({sys_logger: sys_logger});
 
