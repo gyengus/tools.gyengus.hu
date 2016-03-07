@@ -79,6 +79,8 @@ block content
 				span.icon.icon-cogs
 			.clearfix
 			#out_ued
+		+box('')
+			include adsense_banner.jade
 		+box('base64')
 			input#in_b64edstr(placeholder='Szöveg')
 			input(type='radio', name='b64edm', id='b64e', checked='checked')
@@ -91,8 +93,6 @@ block content
 				span.icon.icon-cogs
 			.clearfix
 			#out_b64ed
-		+box('')
-			include adsense_banner.jade
 		+box('Tetszik az oldal?')
 			.donatebtns
 				form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_blank')
