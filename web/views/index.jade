@@ -79,6 +79,20 @@ block content
 				span.icon.icon-cogs
 			.clearfix
 			#out_ued
+		+box('base64')
+			input#in_b64edstr(placeholder='Szöveg')
+			input(type='radio', name='b64edm', id='b64e', checked='checked')
+			label#b64elabel(for='b64e')
+				| encode
+			input(type='radio', name='b64edm', id='b64d')
+			label#b64dlabel(for='b64d')
+				| decode
+			button#b64edbtn
+				span.icon.icon-cogs
+			.clearfix
+			#out_b64ed
+		+box('')
+			include adsense_banner.jade
 		+box('Tetszik az oldal?')
 			.donatebtns
 				form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_blank')
@@ -91,6 +105,8 @@ block content
 				br
 				a(href='https://flattr.com/submit/auto?user_id=gyengus&url=http://tools.gyengus.hu/&title=tools.gyengus.hu&description=Some%20useful%20tools%20for%20webmasters&language=hu_HU&tags=flattr,api,programming&category=software', target='_blank')
 					img(src='https://img.shields.io/badge/Flattr-this!-brightgreen.svg')
+				//br
+				//include btc_donate.jade
 		+box('Osszad meg!')
 			.g-plusone(data-href='http://tools.gyengus.hu/')
 			br

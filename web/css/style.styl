@@ -139,14 +139,14 @@ span.icon, a .icon
 	text-decoration none
 
 // *** Box specifikus design ***
-#in_hash_str, #in_uedstr
+#in_hash_str, #in_uedstr, #in_b64edstr
 	border-radius 3px
 	width 90%
 	margin 0 auto
 	display block
 	margin-bottom 5px
 
-#ue, #ud
+#ue, #ud, #b64e, #b64d
 	min-width 10px
 
 #in_q
@@ -158,20 +158,20 @@ span.icon, a .icon
 #genhashbtn, #genpasswordbtn, #uedbtn
 	border-radius 3px
 
-#ue, #ud, #uelabel, #udlabel, #uedbtn
+#ue, #ud, #uelabel, #udlabel, #uedbtn, #b64e, #b64d, #b64elabel, #b64dlabel, #b64edbtn
 	float left
 
-#uedbtn
+#uedbtn, #b64edbtn
 	margin-top -3px
 	margin-left 5px
 
-#in_uedstr
+#in_uedstr, #in_b64edstr
 	margin-bottom 10px
 
-#uelabel, #udlabel
+#uelabel, #udlabel, #b64elabel, #b64dlabel
 	margin-top 2px
 
-#out_hash, #hostname, #out_ued
+#out_hash, #hostname, #out_ued, #out_b64ed
 	word-break break-all
 
 #hostloader, #iploader
@@ -242,3 +242,14 @@ footer div.github a:hover
 
 .donatebtns
 	text-align center
+
+/*.blockchain-btn .blockchain .stage-begin img
+	cursor pointer
+
+.blockchain-btn div.blockchain .stage-ready
+	background white
+	position absolute
+	top 0px
+	border-radius 3px
+	box-shadow 0px 3px 5px 0px rgba(50, 50, 50, 0.25)
+*/

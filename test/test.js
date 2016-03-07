@@ -72,4 +72,22 @@ describe('tools.gyengus.hu test', function(done) {
 		});
 	});
 
+	it('base64encode test', function(done) {
+		request(server).get('/api/base64/encode/alma').end(function(err, res) {
+			should.not.exist(err);
+        	should(res).have.property('status', 200);
+			should(res.text).be.String().and.eql('YWxtYQ==');
+			done();
+		});
+	});
+
+	it('base64decode test', function(done) {
+		request(server).get('/api/base64/decode/YWxtYQ==').end(function(err, res) {
+			should.not.exist(err);
+        	should(res).have.property('status', 200);
+			should(res.text).be.String().and.eql('alma');
+			done();
+		});
+	});
+
 });

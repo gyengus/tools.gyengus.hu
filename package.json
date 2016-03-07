@@ -1,6 +1,6 @@
 {
   "name": "tools.gyengus.hu",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Some tools on one page for web developers",
   "private": true,
   "main": "app.js",
@@ -26,7 +26,7 @@
     "debug": "~2.1.3",
     "express": "~4.12.3",
     "jade": "~1.9.2",
-    "lodash": "^3.8.0",
+    "lodash": "^4.0.0",
     "morgan": "~1.5.2",
     "pmx": "^0.3.14",
     "serve-favicon": "~2.2.0",

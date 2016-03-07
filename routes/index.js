@@ -70,4 +70,14 @@ router.get('/api/genhash/:hash/:str', function getCalculateHash(req, res, next) 
     res.send(hash);
 });
 
+router.get('/api/base64/:mode/:str', function base64calc(req, res, next) {
+    var result;
+	if (req.params.mode == 'encode') {
+		result = new Buffer(req.params.str).toString('base64');
+	} else {
+		result = new Buffer(req.params.str, 'base64').toString('utf8');
+	}
+    res.send(result);
+});
+
 module.exports = router;

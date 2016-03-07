@@ -133,6 +133,16 @@ $(function() {
 		$('#ue').removeAttr('checked');
 	});
 
+	$('#b64e').click(function() {
+		$('#b64e').attr('checked', 'checked');
+		$('#b64d').removeAttr('checked');
+	});
+
+	$('#b64d').click(function() {
+		$('#b64d').attr('checked', 'checked');
+		$('#b64e').removeAttr('checked');
+	});
+
 	$('#uedbtn').click(function() {
 		if ($('#in_uedstr').val()) {
 			if ($('#ue').attr('checked')) {
@@ -142,6 +152,22 @@ $(function() {
 				// decode
 				$('#out_ued').html('Eredmény: ' + decodeURI($('#in_uedstr').val()));
 			}
+			msnry.layout();
+		}
+		return false;
+	});
+
+	$('#b64edbtn').click(function() {
+		if ($('#in_b64edstr').val()) {
+			$('#out_b64ed').html('');
+			$.ajax({
+				url: 'api/base64/' + ($('#b64e').attr('checked') ? 'encode' : 'decode') + '/' + encodeURIComponent($('#in_b64edstr').val()),
+				type: 'GET',
+				success: function(ret) {
+					$('#out_b64ed').html('Eredmény: ' + ret);
+					msnry.layout();
+				}
+			});
 		}
 		return false;
 	});
