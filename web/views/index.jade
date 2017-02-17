@@ -3,27 +3,29 @@ extends layout
 block content
 	#box-container
 		+box()
-			form#cse-search-box(action='http://www.google.hu', target='_blank')
+			form#cse-search-box(action='//www.google.hu', target='_blank')
 				div
 					input(type='hidden', name='cx', value='partner-pub-9904830194934484:3774910685')
 					input(type='hidden', name='ie', value='UTF-8')
 					input#in_q(type='text', name='q', placeholder='', accesskey='q')
-			script(type='text/javascript', src='http://www.google.hu/coop/cse/brand?form=cse-search-box&lang=hu')
+			script(type='text/javascript', src='//www.google.hu/coop/cse/brand?form=cse-search-box&lang=hu')
 		+box('IP/Host')
 			| IP:
 			span#ip #{ip}
 			div#hostname
 		+box('Olvasnivaló')
 			!= news
+		+box('')
+			include adsense_banner_tall.jade
 		+box('Jelszó generátor')
-			span#password
-			|&nbsp;
 			button#genpasswordbtn(title='Új jelszó')
 				span.icon.icon-loop2
+			|&nbsp;
+			span#password
 		+box('')
 			include adsense_banner.jade
 		+box('Hashelés')
-			input#in_hash_str(name='in_hash_str', placeholder='Szöveg')
+			input#in_hash_str(name='in_hash_str', placeholder='Szöveg', data-click='#genhashbtn')
 			| Algoritmus:&nbsp;
 			select#in_hash
 				option(value='md5') MD5
@@ -68,7 +70,7 @@ block content
 			| UNIX timestamp:&nbsp;
 			span#out_timestamp
 		+box('urlencode/urldecode')
-			input#in_uedstr(placeholder='Szöveg')
+			input#in_uedstr(placeholder='Szöveg', data-click='#uedbtn')
 			input(type='radio', name='uedm', id='ue', checked='checked')
 			label#uelabel(for='ue')
 				| encode
@@ -79,10 +81,8 @@ block content
 				span.icon.icon-cogs
 			.clearfix
 			#out_ued
-		+box('')
-			include adsense_banner.jade
 		+box('base64')
-			input#in_b64edstr(placeholder='Szöveg')
+			input#in_b64edstr(placeholder='Szöveg', data-click='#b64edbtn')
 			input(type='radio', name='b64edm', id='b64e', checked='checked')
 			label#b64elabel(for='b64e')
 				| encode
@@ -94,27 +94,31 @@ block content
 			.clearfix
 			#out_b64ed
 		+box('Tetszik az oldal?')
+			h4 Támogasd!
 			.donatebtns
 				form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_blank')
 					input(type='hidden', name='cmd', value='_s-xclick')
 					input(type='hidden', name='hosted_button_id', value='C4ZRKDB77CARN')
 					input#ppdonateimg(type='image', src='https://img.shields.io/badge/PayPal-Donate-yellow.svg', border='0', name='submit', alt='PayPal - The safer, easier way to pay online!', title='PayPal - The safer, easier way to pay online!')
 					img(alt='', border='0', src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif', width='1', height='1')
-				a(href='https://www.gittip.com/gyengus/', target='_blank')
-					img(src='https://camo.githubusercontent.com/f0bbe8a500133d33f8879886f7eb89c794c20629/687474703a2f2f696d672e736869656c64732e696f2f6769747469702f6779656e6775732e737667', alt='Support us', data-canonical-src='http://img.shields.io/gittip/gyengus.svg', style='max-width:100%;')
+				include btc_popup.jade
 				br
-				a(href='https://flattr.com/submit/auto?user_id=gyengus&url=http://tools.gyengus.hu/&title=tools.gyengus.hu&description=Some%20useful%20tools%20for%20webmasters&language=hu_HU&tags=flattr,api,programming&category=software', target='_blank')
-					img(src='https://img.shields.io/badge/Flattr-this!-brightgreen.svg')
-				//br
-				//include btc_donate.jade
-		+box('Osszad meg!')
-			.g-plusone(data-href='http://tools.gyengus.hu/')
+				include tibit.jade
+			h4 Vagy oszd meg!
+			.g-plusone(data-annotation='none', data-href='https://tools.gyengus.hu/')
+			script(type='text/javascript').
+				window.___gcfg = {lang: 'hu'};
+				(function() {
+					var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					po.src = 'https://apis.google.com/js/platform.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				})();
 			br
 			a.twitter-share-button(href='https://twitter.com/share', data-related='Gyenge_Gabor', data-hashtags='tools') Tweet
 			script.
 				!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 			br
-			.fb-like(data-href='http://tools.gyengus.hu/', data-layout='button', data-action='like', data-show-faces='false', data-share='true')
+			.fb-like(data-href='https://tools.gyengus.hu/', data-layout='button', data-action='like', data-show-faces='false', data-share='true')
 	.clearfix
 	script(src='/js/masonry.pkgd.min.js')
 	script(src='/js/index.js')

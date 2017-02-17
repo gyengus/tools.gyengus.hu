@@ -56,7 +56,6 @@ app.set('views', path.join(__dirname, 'web/views'));
 app.set('view engine', 'jade');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-//app.enable('trust proxy');
 app.set('trust proxy', function(ip) {
 	if (ip === '127.0.0.1') return true;
 	return false;

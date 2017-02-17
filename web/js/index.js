@@ -1,11 +1,11 @@
 var genpassword = function(msnry) {
 	$.ajax({
-	   url: 'api/genpassword?_mt=' + Math.random(),
-	   type: 'GET',
-	   success: function(ret) {
-		   $('#password').html(ret);
-		   msnry.layout();
-	   }
+		url: 'api/genpassword?_mt=' + Math.random(),
+		type: 'GET',
+		success: function(ret) {
+			$('#password').html(ret);
+			msnry.layout();
+		}
 	});
 };
 
@@ -19,6 +19,11 @@ var calcdate = function() {
 		var second = (time.getSeconds() > 9 ? '' : '0') + time.getSeconds();
 		return time.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
 	}
+};
+
+var movePopupToCenter = function() {
+	$('#btc_popup').css('left', (window.innerWidth / 2) - $('#btc_popup').width() / 2);
+	$('#btc_popup').css('top', (window.innerHeight / 2) - $('#btc_popup').height() / 2);
 };
 
 $(function() {
@@ -172,8 +177,8 @@ $(function() {
 		return false;
 	});
 
-	$('.expandbtn').click(function() {
-		var news_desc = $(this).next().next();
+	$('.news_title').click(function() {
+		var news_desc = $(this).next();
 		if ($(news_desc).css('display') === 'block') {
 			$(this).find('span').removeClass('icon-circle-up').addClass('icon-circle-down');
 			$(news_desc).slideUp(function() {
@@ -187,4 +192,19 @@ $(function() {
 		}
 		return false;
 	});
+	
+	$('.btc_btn').click(function() {
+		if ($('#shadow').css('display') === 'none') {
+			$('#shadow').show();
+			$('#btc_popup').show();
+			movePopupToCenter();
+		}
+		return false;
+	});
+	
+	$('#shadow').click(function() {
+		$('#btc_popup').hide();
+		$('#shadow').hide();
+	});
+
 });

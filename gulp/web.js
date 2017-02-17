@@ -43,7 +43,7 @@ gulp.task(jsGulp, [ 'copy-static' ], function( callback ) {
 });
 
 gulp.task(stylusGulp, function ( cb ) {
-	return gulp.src('./web/css/style.styl')
+	return gulp.src('./web/css/*.styl')
 		.pipe( global.plugins.stylus( {
 			errors: true,
 			use: [ global.jeet(), global.nib(), global.rupture(), global.kouto() ],

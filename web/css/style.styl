@@ -38,7 +38,7 @@ header a, header a:active, header a:visited, header a:hover
 	color white
 	text-decoration none
 
-h1
+h1, h4
 	margin 0
 
 .clearfix
@@ -66,7 +66,7 @@ h1
 		width 22.75%
 	border-radius 3px
 	box-shadow 0px 3px 5px 0px rgba(50, 50, 50, 0.25)
-    //box-shadow 0 1px 5px 0 rgba(0, 0, 0, 0.2)
+	//box-shadow 0 1px 5px 0 rgba(0, 0, 0, 0.2)
 
 .box-title
 	border-bottom 1px solid #cccccc
@@ -199,17 +199,17 @@ span.icon, a .icon
 	padding-top 0.5em
 	font-size 0.8em
 
+.news_title
+	cursor pointer
+
 .expandbtn
 	float left
-	cursor pointer
 	text-decoration none
 	margin-right 5px
-
-.expandbtn > span, .expandbtn:hover > span, .news a.expandbtn:hover
-	text-decoration none
 	color #cccccc
 
-.expandbtn:hover > span, .news a.expandbtn:hover
+.expandbtn:hover, .news_title:hover > .expandbtn
+	text-decoration none
 	color #0085BE
 
 .read-more
@@ -241,16 +241,37 @@ footer div.github a:hover
 	height 240px
 	text-align center
 
+.adsensediv_tall
+	height 600px
+	text-align center
+
 .donatebtns
 	text-align center
 
-/*.blockchain-btn .blockchain .stage-begin img
+#shadow
+	display none
+	background-color black
+	opacity 0.8
+	position fixed
+	left 0px
+	top 0px
+	right 0px
+	bottom 0px
+	width auto
+	height auto
+	z-index 9500
 	cursor pointer
 
-.blockchain-btn div.blockchain .stage-ready
-	background white
-	position absolute
+#btc_popup
+	display none
+	position fixed
+	left 0px
 	top 0px
+	z-index 9501
+	margin-bottom 1.5em
+	background-color #ffffff
 	border-radius 3px
 	box-shadow 0px 3px 5px 0px rgba(50, 50, 50, 0.25)
-*/
+
+.icon-bitcoin
+	margin-right 5px

@@ -29,14 +29,14 @@ router.get('/', function getIndexPage(req, res, next) {
 // Password generator
 router.get('/api/genpassword', function getGenPassword(req, res, next) {
 	// FankaDeli - Végtelen (részlet)
-    var dummyString = 'AvoltelmultAL.esz_M@jdJonaKezemRemeg-SzemembenKonnyMertJonaViharaTengerenDeBe.leugrokDeMondomHogyNem_MeremEsNegondoldHogyTobbetNemLeh.etHiabaLoknekElenUgyisFelkelekNembiromtov@bbugranom-kellKialtokd.eavegtelennemFelel'.split('').sort(function() { return 0.5 - Math.random(); }).join('');
-    var dummyNumber = '' + Math.random();
-    var numberOfNumbers = Math.floor((Math.random() * 6) + 1);
-    var tmp = 2 + numberOfNumbers;
-    if (tmp > (dummyNumber.length - 1)) tmp = dummyNumber.length - 1;
-    var passwd = dummyNumber.substring(2, tmp) + dummyString.substring(0, 18);
-    passwd = passwd.split('').sort(function() { return 0.5 - Math.random(); }).join('');
-    res.send(passwd);
+	var dummyString = 'AvoltelmultAL.esz_M@jdJonaKezemRemeg-SzemembenKonnyMertJonaViharaTengerenDeBe.leugrokDeMondomHogyNem_MeremEsNegondoldHogyTobbetNemLeh.etHiabaLoknekElenUgyisFelkelekNembiromtov@bbugranom-kellKialtokd.eavegtelennemFelel'.split('').sort(function() { return 0.5 - Math.random(); }).join('');
+	var dummyNumber = '' + Math.random();
+	var numberOfNumbers = Math.floor((Math.random() * 6) + 1);
+	var tmp = 2 + numberOfNumbers;
+	if (tmp > (dummyNumber.length - 1)) tmp = dummyNumber.length - 1;
+	var passwd = dummyNumber.substring(2, tmp) + dummyString.substring(0, 18);
+	passwd = passwd.split('').sort(function() { return 0.5 - Math.random(); }).join('');
+	res.send(passwd);
 });
 
 // Hostname lookup by IP
@@ -48,36 +48,36 @@ router.get('/api/gethostname/:ip', function getHostname(req, res, next) {
 			req.sys_logger.write(err, 'error');
 		}
 		res.send(hostname);
-    });
+	});
 });
 
 // IP lookup by hostname
 router.get('/api/getip/:hostname', function getIP(req, res, next) {
-    var dns = require('dns');
-    dns.resolve(req.params.hostname, function(err, ip) {
+	var dns = require('dns');
+	dns.resolve(req.params.hostname, function(err, ip) {
 		if (err) {
 			req.sys_logger.write(err, 'error');
 			res.send(['Nem sikerült lekérdezni a szerver IP címét.']);
 		} else {
-        	res.send(ip);
+			res.send(ip);
 		}
-    });
+	});
 });
 
 // Calculate hash (MD5, SHA1, etc.)
 router.get('/api/genhash/:hash/:str', function getCalculateHash(req, res, next) {
-    var hash = crypto.createHash(req.params.hash).update(decodeURIComponent(req.params.str)).digest('hex');
-    res.send(hash);
+	var hash = crypto.createHash(req.params.hash).update(decodeURIComponent(req.params.str)).digest('hex');
+	res.send(hash);
 });
 
 router.get('/api/base64/:mode/:str', function base64calc(req, res, next) {
-    var result;
+	var result;
 	if (req.params.mode == 'encode') {
 		result = new Buffer(req.params.str).toString('base64');
 	} else {
 		result = new Buffer(req.params.str, 'base64').toString('utf8');
 	}
-    res.send(result);
+	res.send(result);
 });
 
 module.exports = router;
