@@ -26,13 +26,6 @@ gulp.task('build', function(callback) {
 	);
 } );
 
-gulp.task('watch', function(callback) {
-	global.developmentMode = true;
-	runSequence(
-		'watch-web', callback
-	);
-} );
-
 // gulp deploy --dest=/path/to/destination
 gulp.task('deploy', function(callback) {
 	var destination = argv.dest;

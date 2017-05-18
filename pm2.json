@@ -2,7 +2,7 @@
 	"apps" : [{
 		"name"        : "tools.gyengus.hu",
 		"script"      : "app.js",
-		"cwd"         : "/mnt/data/nodejs_apps/tools.gyengus.hu",
+		"cwd"         : "/mnt/ssddata/nodejs_apps/tools.gyengus.hu",
 		"exec_mode"  : "fork_mode"
 	}]
 }

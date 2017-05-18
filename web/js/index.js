@@ -138,16 +138,6 @@ $(function() {
 		$('#ue').removeAttr('checked');
 	});
 
-	$('#b64e').click(function() {
-		$('#b64e').attr('checked', 'checked');
-		$('#b64d').removeAttr('checked');
-	});
-
-	$('#b64d').click(function() {
-		$('#b64d').attr('checked', 'checked');
-		$('#b64e').removeAttr('checked');
-	});
-
 	$('#uedbtn').click(function() {
 		if ($('#in_uedstr').val()) {
 			if ($('#ue').attr('checked')) {
@@ -160,6 +150,16 @@ $(function() {
 			msnry.layout();
 		}
 		return false;
+	});
+
+	$('#b64e').click(function() {
+		$('#b64e').attr('checked', 'checked');
+		$('#b64d').removeAttr('checked');
+	});
+
+	$('#b64d').click(function() {
+		$('#b64d').attr('checked', 'checked');
+		$('#b64e').removeAttr('checked');
 	});
 
 	$('#b64edbtn').click(function() {

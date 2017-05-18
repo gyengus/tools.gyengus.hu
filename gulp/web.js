@@ -24,11 +24,7 @@ gulp.task( 'copy-static', [ 'web-lint' ], function( ) {
 
 var buildTasks = [ 'web-lint', 'copy-static' ];
 
-gulp.task( 'watch-static', [ 'copy-static' ], function() {
-	gulp.watch(['./web/**/*'], [ 'copy-static' ] );
-});
-
-var innerWatchGulp = 'innerWatch', watchGulp = 'watch', buildGulp = 'build', stylusGulp = 'stylus', jsGulp = 'js';
+var buildGulp = 'build', stylusGulp = 'stylus', jsGulp = 'js';
 
 gulp.task(jsGulp, [ 'copy-static' ], function( callback ) {
     if (global.argv.development) {
@@ -66,44 +62,7 @@ gulp.task( buildGulp, [ stylusGulp, jsGulp ], function( cb ) { cb(); });
 buildTasks = buildTasks.concat( stylusGulp, jsGulp );
 
 
-gulp.task( innerWatchGulp, function() {
-	gulp.watch(['./web/css/*.styl'], [ stylusGulp ] );
-
-	gulp.watch(['./node_modules/*/package.json', './web/js/*.js'], [ jsGulp ] );
-
-	var all_build_files = ['./public/**/*'];
-	return gulp.watch(all_build_files, function(evt){
-		global.plugins.livereload.changed(evt.path);
-	});
-});
-
-gulp.task( watchGulp, [stylusGulp, jsGulp, 'watch-static'], function( callback ) {
-	global.developmentMode = true;
-	global.plugins.livereload.listen();
-	global.runSequence(
-		stylusGulp, jsGulp, innerWatchGulp, callback
-	);
-});
-
 exports.buildTasks = buildTasks;
-
-gulp.task( 'innerWatch-web', function() {
-	gulp.watch(['./web/css/*.styl'], [stylusGulp] );
-
-	gulp.watch(['./node_modules/*/package.json', './web/js/*.js'], [watchGulp] );
-
-	var all_build_files = ['./public/**/*'];
-	return gulp.watch(all_build_files, function(evt){
-		global.plugins.livereload.changed(evt.path);
-	});
-});
-
-gulp.task( 'watch-web', buildTasks.concat( 'watch-static' ), function( callback ) {
-	global.plugins.livereload.listen();
-	global.runSequence(
-		[stylusGulp], [watchGulp], 'innerWatch-web', callback
-	);
-});
 
 gulp.task('deploy-copy', buildTasks, function(callback) {
 	// létre kell hozni a célkönyvtárat, ha nem létezik!
